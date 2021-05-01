@@ -1,0 +1,17 @@
+{
+  "typescript": true,
+  "prettier": true,
+  "prettierConfig": {
+    "singleQuote": true,
+    "semi": false,
+    "printWidth": 100
+  },
+  "ignoreExisting": true,
+  "svgProps": {
+    "width": "22.5",
+    "height": "22.5"
+  },
+  "replaceAttrValues": {
+    "#fff": "currentColor"
+  }
+}
