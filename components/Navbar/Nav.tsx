@@ -3,7 +3,7 @@ import { Pinterest } from '../../assets/IconComponents'
 
 export default function Nav() {
   return (
-    <div className="flex shadow-lg overflow-x-hidden">
+    <div className="flex border overflow-x-hidden">
       <div className="flex flex-wrap justify-between w-screen h-20 text-black bg-white md:flex-nowrap">
         <div className="z-30 flex items-center h-full pl-3 space-x-3 bg-white">
           <Pinterest className="text-white" />
