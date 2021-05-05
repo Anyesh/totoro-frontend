@@ -1,15 +1,15 @@
 import React from 'react'
 import { Footer } from '../components/Footer'
 import { Nav } from '../components/Navbar'
-import { LoginPage } from '../containers/LoginPage'
+import { LoginPage } from './LoginPage'
 
 export default function index() {
   return (
     <div className="overflow-hidden">
-      <Nav />
+      {Nav({ name: 'Pinterest' })}
 
       <LoginPage />
-      <Footer />
+      {Footer({ name: 'Pinterest' })}
     </div>
   )
 }
