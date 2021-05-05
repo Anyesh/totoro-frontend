@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Footer() {
+export default function Footer({ name }) {
   return (
     <footer className="bg-white dark:bg-gray-800 border drop-shadow-sm">
       <div className="container px-6 py-4 mx-auto">
@@ -12,12 +12,14 @@ export default function Footer() {
                   href="#"
                   className="text-xl font-bold text-gray-800 dark:text-white hover:text-gray-700 dark:hover:text-gray-300"
                 >
-                  Pinterest
+                  {name}
                 </a>
               </div>
 
               <p className="max-w-md mt-2 text-gray-500 dark:text-gray-400">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, nisi! Id.
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae recusandae
+                cupiditate voluptas neque quam soluta voluptates, ut quis laboriosam incidunt
+                doloremque consectetur odit iure nisi quaerat eligendi animi eum at.
               </p>
 
               <div className="flex mt-4 -mx-2">
