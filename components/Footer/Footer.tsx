@@ -141,7 +141,7 @@ export default function Footer({ name }) {
 
         <div>
           <p className="text-center text-gray-800 dark:text-white">
-            © Brand 2020 - All rights reserved
+            © {name} 2020-{new Date().getFullYear()} - All rights reserved
           </p>
         </div>
       </div>
