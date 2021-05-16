@@ -3,16 +3,19 @@ import React from 'react'
 import { Layout } from '../../components/Layout'
 import LoginForm from './LoginForm'
 
-const pageDescriptions = 'Totoro is an AI-enalbled social networking web application.'
+const pageDescriptions: string = 'Totoro is an AI-enalbled social networking web application.'
+
 export default function Login() {
   return (
     <Layout>
-      <div className="lg:pl-20 lg:pr-20 md:pl-10 md:pr-10 sm:p-5 h-screen w-screen grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 items-center justify-center bg-nord5">
+      <div className="lg:pl-20 lg:pr-20 md:pl-10 md:pr-10 sm:p-5 h-screen w-screen grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 items-center justify-center dark:bg-nord1 bg-white">
         <div className="text-3xl text-center sm:text-center mx-auto md:text-left w-full">
-          <h1 className="text-5xl lg:text-left text-nord1 font-bold">Totoro</h1>
-          <p className="text-nord3">{pageDescriptions}</p>
+          <h1 className="text-5xl lg:text-left light:text-nord1 dark:text-nord4 font-bold">
+            Totoro
+          </h1>
+          <p className="dark:text-nord4 light:text-nord0">{pageDescriptions}</p>
         </div>
-        <div className="mx-auto items-center xl:w-1/2 md:w-full sm:w-full  shadow-lg bg-white rounded-lg p-5">
+        <div className="mx-auto items-center xl:w-1/2 md:w-full sm:w-full  shadow-lg light:bg-white dark:bg-nord3 bg-nord6 rounded-lg p-5">
           <h1 className="font-light text-center p-2">Login to continue</h1>
           <hr className="opacity-20" />
 
