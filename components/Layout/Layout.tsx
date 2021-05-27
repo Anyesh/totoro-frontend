@@ -7,7 +7,7 @@ export default function Layout({ children }) {
     <div className="overflow-hidden">
       {Nav({ name: 'Totoro' })}
 
-      {children}
+      <div className="container">{children}</div>
       {Footer({ name: 'Totoro' })}
     </div>
   )

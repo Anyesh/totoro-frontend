@@ -1,10 +1,13 @@
-import { AppProps } from 'next/app'
 import { ThemeProvider } from 'next-themes'
+import { AppProps } from 'next/app'
+import { Layout } from '../components/Layout'
 import '../styles/globals.css'
 function Totoro({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider attribute="class">
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ThemeProvider>
   )
 }
