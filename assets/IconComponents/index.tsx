@@ -1,3 +1,5 @@
 export { default as Chat } from './Chat'
+export { default as Github } from './Github'
+export { default as Google } from './Google'
 export { default as Pinterest } from './Pinterest'
 export { default as Telegram } from './Telegram'

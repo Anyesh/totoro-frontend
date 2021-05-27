@@ -34,7 +34,7 @@ export default function Nav({ name }) {
           </a> */}
 
           <button
-            className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-nord0 items-center justify-center dark:text-white"
+            className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-nord0 items-center justify-center dark:text-white focus:outline-none"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           >
             <span>{theme == 'light' ? '🌙' : '☀️'}</span>
