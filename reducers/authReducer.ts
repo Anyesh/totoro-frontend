@@ -1,5 +1,5 @@
 import { SET_CURRENT_USER, SET_REGISTRATION_STATUS } from '@constants/actionTypes'
-import { authState } from '@interfaces/generics'
+import { authState } from '@interfaces/general'
 import isEmpty from '@validations/is-empty'
 
 const initialState: authState = {

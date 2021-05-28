@@ -5,7 +5,7 @@ import {
   SET_CURRENT_USER,
   SET_REGISTRATION_STATUS,
 } from '@constants/actionTypes'
-import { IType } from '@interfaces/generics'
+import { IType } from '@interfaces/general'
 
 // Set loggged in user
 export const setCurrentUser = (data: unknown): IType => {
