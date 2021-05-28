@@ -19,7 +19,7 @@ export default function Signup() {
 
         <hr className="opacity-30" />
 
-        <div className="text-center  mt-4 mb-4 dark:text-white light:text-nord2  p-2 rounded-lgtext-lg ">
+        <div className="text-center text-lg mt-4 mb-4 dark:text-white light:text-nord2  p-2 rounded-lgtext-lg ">
           <p className="inline">Go back to</p>
           <p className=" font-semibold inline">
             <Link href="/login"> Login</Link>

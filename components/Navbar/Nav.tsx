@@ -1,5 +1,6 @@
 import { useTheme } from 'next-themes'
 import React from 'react'
+import { Moon, Sun } from '../../assets/IconComponents'
 export default function Nav({ name }) {
   const { theme, setTheme } = useTheme()
 
@@ -34,10 +35,12 @@ export default function Nav({ name }) {
           </a> */}
 
           <button
-            className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-nord0 items-center justify-center dark:text-white focus:outline-none"
+            className="lg:inline-flex lg:w-auto w-full rounded text-nord0 items-center justify-center dark:text-white focus:outline-none"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           >
-            <span>{theme == 'light' ? '🌙' : '☀️'}</span>
+            <span>
+              {theme == 'light' ? <Moon className="h-9 w-9" /> : <Sun className="h-9 w-9" />}
+            </span>
           </button>
         </div>
       </div>
