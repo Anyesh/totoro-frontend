@@ -27,13 +27,6 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
         id="navigation"
       >
         <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto">
-          {/* <a
-            href="/login"
-            className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-nord0 items-center justify-center dark:text-white"
-          >
-            <span>Login</span>
-          </a> */}
-
           <button
             className="lg:inline-flex lg:w-auto w-full rounded text-nord0 items-center justify-center dark:text-white focus:outline-none"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}

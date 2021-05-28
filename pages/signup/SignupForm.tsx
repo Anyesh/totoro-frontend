@@ -1,7 +1,7 @@
 import React from 'react'
 import { Github, Google } from '../../assets/IconComponents'
 
-export default function SignupForm() {
+export default function SignupForm(): React.ReactElement {
   return (
     <>
       <form className="mt-5 mb-5 dark:text-nord0 space-y-7">

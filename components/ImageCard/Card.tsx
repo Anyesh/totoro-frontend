@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Card() {
+export default function Card(): React.ReactElement {
   return (
     <div className="mx-w-sm rounded overflow-hidden shadow-lg">
       <img src="" alt="" className="w-full" />

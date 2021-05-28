@@ -2,9 +2,9 @@ import Link from 'next/link'
 import React from 'react'
 import SignupForm from './SignupForm'
 
-const pageDescriptions: string = 'Totoro is an AI-enalbled social networking web application.'
+const pageDescriptions = 'Totoro is an AI-enalbled social networking web application.'
 
-export default function Signup() {
+export default function Signup(): React.ReactElement {
   return (
     <div className="lg:pl-20 lg:pr-20 md:pl-10 md:pr-10 sm:p-5 h-screen w-screen grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 items-center justify-center dark:bg-nord1 bg-white">
       <div className="text-3xl text-center sm:text-center mx-auto md:text-left w-full">

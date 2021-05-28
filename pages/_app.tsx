@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { Layout } from '@components/Layout'
 import { AppWithStore } from '@interfaces'
 import { makeStore } from '@store'
@@ -14,7 +15,7 @@ class Totoro extends App<AppWithStore> {
   }
 
   render() {
-    const { Component, pageProps, store } = this.props
+    const { Component, pageProps } = this.props
 
     return (
       <ThemeProvider attribute="class">

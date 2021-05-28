@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function LoginForm() {
+export default function LoginForm(): React.ReactElement {
   return (
     <>
       <form className="mt-5  mb-5 flex flex-col dark:text-nord0">

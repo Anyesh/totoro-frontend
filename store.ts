@@ -15,6 +15,6 @@ export type Store = ReduxStore<typeof initialState>
 
 const middlewares = dev ? [thunkMiddleware, createLogger()] : []
 
-export const makeStore = (state: typeof initialState) => {
+export const makeStore = (state: typeof initialState): Store => {
   return createStore(rootReducers, state, composeWithDevTools(applyMiddleware(...middlewares)))
 }

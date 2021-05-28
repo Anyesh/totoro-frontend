@@ -1,8 +1,4 @@
-import {
-  SET_CURRENT_STAGE,
-  SET_CURRENT_USER,
-  SET_REGISTRATION_STATUS,
-} from '@constants/actionTypes'
+import { SET_CURRENT_USER, SET_REGISTRATION_STATUS } from '@constants/actionTypes'
 import { authState } from '@interfaces/generics'
 import isEmpty from '@validations/is-empty'
 
@@ -13,7 +9,10 @@ const initialState: authState = {
   user: {},
 }
 
-export const authReducer = (state: authState = initialState, action: any): authState => {
+export const authReducer = (
+  state: authState = initialState,
+  action: Record<string, unknown>
+): authState => {
   switch (action.type) {
     case SET_CURRENT_USER:
       return {
@@ -21,12 +20,6 @@ export const authReducer = (state: authState = initialState, action: any): authS
         isAuthenticated: !isEmpty(action.payload),
 
         user: action.payload,
-      }
-
-    case SET_CURRENT_STAGE:
-      return {
-        ...state,
-        stage: action.payload,
       }
 
     case SET_REGISTRATION_STATUS:

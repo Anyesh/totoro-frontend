@@ -5,9 +5,10 @@ import {
   SET_CURRENT_USER,
   SET_REGISTRATION_STATUS,
 } from '@constants/actionTypes'
+import { IType } from '@interfaces/generics'
 
 // Set loggged in user
-export const setCurrentUser = (data: object) => {
+export const setCurrentUser = (data: unknown): IType => {
   return {
     type: SET_CURRENT_USER,
     payload: data,
@@ -15,7 +16,7 @@ export const setCurrentUser = (data: object) => {
 }
 
 //Set current STAGE
-export const setCurrentStage = (data: string) => {
+export const setCurrentStage = (data: unknown): IType => {
   return {
     type: SET_CURRENT_STAGE,
     payload: data,
@@ -23,7 +24,7 @@ export const setCurrentStage = (data: string) => {
 }
 
 //Set error message
-export const setErrorMessage = (data: string) => {
+export const setErrorMessage = (data: unknown): IType => {
   return {
     type: GET_ERRORS,
     payload: data,
@@ -31,7 +32,7 @@ export const setErrorMessage = (data: string) => {
 }
 
 // Set messages
-export const setMsg = (data: string) => {
+export const setMsg = (data: unknown): IType => {
   return {
     type: GET_MSG,
     payload: data,
@@ -39,7 +40,7 @@ export const setMsg = (data: string) => {
 }
 
 // Set Reg Status
-export const setRegistraton = (data: object) => {
+export const setRegistraton = (data: unknown): IType => {
   return {
     type: SET_REGISTRATION_STATUS,
     payload: data,

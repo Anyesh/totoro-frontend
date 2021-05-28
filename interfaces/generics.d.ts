@@ -1,10 +1,15 @@
 export interface authState {
   isAuthenticated: boolean
-  stage: String
-  isRegistered: boolean
-  user: object
+  stage: string
+  isRegistered: boolean | unknown
+  user
 }
 
 export interface IStore {
   auth: authState
+}
+
+export interface IType {
+  type: string
+  payload
 }

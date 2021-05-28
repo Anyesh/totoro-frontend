@@ -6,9 +6,9 @@ import axios from 'axios'
 import { Dispatch } from 'redux'
 
 // Register User
-export const registerUser = (userData: RegisterUserData) => (dispatch: Dispatch) => {
+export const registerUser = (userData: RegisterUserData) => (dispatch: Dispatch): void => {
   // clearing previous mess
-  dispatch(setErrorMessage({}))
+  dispatch(setErrorMessage(''))
   dispatch(setMsg(''))
   axios
     .post(`${ROOT_API}/api/user/register`, userData)
@@ -24,7 +24,7 @@ export const registerUser = (userData: RegisterUserData) => (dispatch: Dispatch)
 }
 
 // Login get user token
-export const loginUser = (userData: LoginUserData) => (dispatch: Dispatch) => {
+export const loginUser = (userData: LoginUserData) => (dispatch: Dispatch): void => {
   // clearing previous mess
   dispatch(setErrorMessage({}))
   dispatch(setMsg({}))
@@ -33,7 +33,7 @@ export const loginUser = (userData: LoginUserData) => (dispatch: Dispatch) => {
     .post(`${ROOT_API}/api/user/login`, userData)
     .then((res) => {
       // Save to the local storage
-      const { token, data } = res.data
+      const { token } = res.data
 
       // SEt token to local
       localStorage.setItem('coingeo_token', token)
