@@ -1,7 +1,7 @@
 import { useTheme } from 'next-themes'
 import React from 'react'
 import { Moon, Sun } from '../../assets/IconComponents'
-export default function Nav({ name }) {
+export default function Nav({ name }: { name: string }): React.ReactElement {
   const { theme, setTheme } = useTheme()
 
   return (

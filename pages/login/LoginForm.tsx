@@ -16,7 +16,7 @@ export default function LoginForm() {
           required={true}
           className="mb-3 py-3 px-4 border border-nord9 focus:outline-none rounded-md focus:ring-1 ring-cyan-500 dark:bg-nord4"
         />
-        <button className="w-full bg-nord10 text-white p-3 rounded-lg font-semibold text-lg">
+        <button className="w-full bg-nord10 hover:bg-nord9 transition duration-700  text-white p-3 rounded-lg font-semibold text-lg">
           Login
         </button>
         <a className="light:text-nord10 dark:text-nord4 text-center my-2" href="#">

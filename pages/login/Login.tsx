@@ -19,7 +19,7 @@ export default function Login() {
 
         <hr className="opacity-30" />
 
-        <div className="text-center bg-nord11 mt-4 mb-4 text-white p-3 rounded-lg font-semibold text-lg">
+        <div className="text-center bg-nord11 hover:opacity-70 transition duration-700 mt-4 mb-4 text-white p-3 rounded-lg font-semibold text-lg block">
           <Link href="/signup">Create New Account</Link>
         </div>
         <p className="text-center text-sm m-4">

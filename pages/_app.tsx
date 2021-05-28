@@ -1,15 +1,30 @@
+import { Layout } from '@components/Layout'
+import { AppWithStore } from '@interfaces'
+import { makeStore } from '@store'
+import { createWrapper } from 'next-redux-wrapper'
 import { ThemeProvider } from 'next-themes'
-import { AppProps } from 'next/app'
-import { Layout } from '../components/Layout'
+import App, { AppContext, AppInitialProps } from 'next/app'
 import '../styles/globals.css'
-function Totoro({ Component, pageProps }: AppProps) {
-  return (
-    <ThemeProvider attribute="class">
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ThemeProvider>
-  )
+
+class Totoro extends App<AppWithStore> {
+  static async getInitialProps({ Component, ctx }: AppContext): Promise<AppInitialProps> {
+    const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
+
+    return { pageProps }
+  }
+
+  render() {
+    const { Component, pageProps, store } = this.props
+
+    return (
+      <ThemeProvider attribute="class">
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
+    )
+  }
 }
 
-export default Totoro
+const wrapper = createWrapper(makeStore)
+export default wrapper.withRedux(Totoro)

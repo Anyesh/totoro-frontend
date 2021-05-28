@@ -1,14 +1,10 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -16,14 +12,47 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@actions": ["actions"],
+      "@actions/*": ["actions/*"],
+      "@config": ["config"],
+      "@config/*": ["config/*"],
+      "@utils": ["utils"],
+      "@utils/*": ["utils/*"],
+      "@components/*": ["components/*"],
+      "@constants/*": ["constants/*"],
+      "@constants": ["constants"],
+      "@validations": ["validations"],
+      "@validations/*": ["validations/*"],
+      "@components": ["components"],
+      "@definitions/*": ["definitions/*"],
+      "@definitions": ["definitions"],
+      "@interfaces": ["interfaces"],
+      "@interfaces/*": ["interfaces/*"],
+      "@pages/*": ["pages/*"],
+      "@reducers": ["reducers"],
+      "@reducers/*": ["reducers/*"],
+      "@store": ["store"],
+      "@server/*": ["server/*"],
+      "@services": ["services"],
+      "@services/*": ["services/*"],
+      "@static/*": ["public/static/*"],
+      "@test/*": ["test/*"]
+    }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
+
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist",
+    ".next",
+    "out",
+    "next.config.js",
+    ".babelrc",
+    "bundles",
+    "coverage",
+    "test/*"
   ]
 }
