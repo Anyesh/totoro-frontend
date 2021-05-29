@@ -5,7 +5,6 @@ import setAuthToken from '@utils/setAuthToken'
 import axios from 'axios'
 import { Dispatch } from 'redux'
 
-// Register User
 export const registerUser = (userData: RegisterUserData) => (dispatch: Dispatch): void => {
   // clearing previous mess
   dispatch(setErrorMessage(''))
@@ -23,7 +22,6 @@ export const registerUser = (userData: RegisterUserData) => (dispatch: Dispatch)
     })
 }
 
-// Login get user token
 export const loginUser = (userData: LoginUserData) => (dispatch: Dispatch): void => {
   // clearing previous mess
   dispatch(setErrorMessage({}))
@@ -36,7 +34,7 @@ export const loginUser = (userData: LoginUserData) => (dispatch: Dispatch): void
       const { token } = res.data
 
       // SEt token to local
-      localStorage.setItem('coingeo_token', token)
+      localStorage.setItem('totoro_token', token)
       // Set token to auth header
       setAuthToken(token)
 
