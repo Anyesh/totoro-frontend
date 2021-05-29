@@ -8,7 +8,7 @@ export default function SignupForm(): React.ReactElement {
         <button className="w-full bg-nord11 hover:opacity-70 transition duration-700 text-white p-4 rounded-lg font-semibold text-lg inline-flex  justify-start items-center">
           <Google className="mr-3" /> Signup with Google
         </button>
-        <button className="w-full bg-nord0 hover:opacity-70 transition duration-700 text-white p-4 rounded-lg font-semibold text-lg inline-flex items-center">
+        <button className="w-full bg-nord0 hover:opacity-70 transition duration-700 text-white p-4 rounded-lg font-semibold text-lg inline-flex items-center fill-current">
           <Github className="mr-3" /> Signup with GitHub
         </button>
       </form>
