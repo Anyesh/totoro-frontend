@@ -15,6 +15,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@headlessui/react": "^1.2.0",
     "axios": "^0.21.1",
     "next": "10.2.0",
     "next-redux-wrapper": "^6.0.2",
