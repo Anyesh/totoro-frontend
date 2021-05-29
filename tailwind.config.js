@@ -15,6 +15,9 @@ module.exports = {
       '6xl': '4rem',
     },
     extend: {
+      outline: {
+        blue: '1px solid #4C566A',
+      },
       colors: {
         gray: {
           100: '#4C566A',
