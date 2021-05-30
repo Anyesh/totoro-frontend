@@ -1,10 +1,10 @@
 export interface RegisterUserData {
-  userName: string
+  username: string
   email: string
   password: string
 }
 
 export interface LoginUserData {
-  userName: string
+  username: string
   password: string
 }
