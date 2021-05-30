@@ -6,6 +6,7 @@ import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { Provider } from 'react-redux'
+import { ToastProvider } from 'react-toast-notifications'
 import '../styles/globals.css'
 
 const Totoro = ({ Component, pageProps }: AppProps): React.ReactElement => {
@@ -34,9 +35,11 @@ const Totoro = ({ Component, pageProps }: AppProps): React.ReactElement => {
   return (
     <Provider store={store}>
       <ThemeProvider attribute="class">
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ToastProvider autoDismiss autoDismissTimeout={6000} placement="bottom-right">
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ToastProvider>
       </ThemeProvider>
     </Provider>
   )
