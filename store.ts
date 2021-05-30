@@ -1,3 +1,4 @@
+import { createWrapper } from 'next-redux-wrapper'
 import { applyMiddleware, createStore, Store as ReduxStore } from 'redux'
 import { createLogger } from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
@@ -15,6 +16,7 @@ export type Store = ReduxStore<typeof initialState>
 
 const middlewares = dev ? [thunkMiddleware, createLogger()] : []
 
-export const makeStore = (state: typeof initialState): Store => {
+export const makeStore = (state = initialState): Store => {
   return createStore(rootReducers, state, composeWithDevTools(applyMiddleware(...middlewares)))
 }
+export const wrapper = createWrapper(makeStore)
