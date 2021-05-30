@@ -6,10 +6,12 @@ export default function Layout({ children }: { children: React.ReactNode }): Rea
   const NAME = 'Totoro'
   return (
     <div className="overflow-hidden">
-      <Nav name={NAME} />
+      <div className="bg-nord6 dark:bg-nord1">
+        <Nav name={NAME} />
 
-      <div className="container w-screen max-w-full bg-nord6 dark:bg-nord1">{children}</div>
-      <Footer name={NAME} />
+        <div className="container max-w-full mt-5 mb-5">{children}</div>
+        <Footer name={NAME} />
+      </div>
     </div>
   )
 }

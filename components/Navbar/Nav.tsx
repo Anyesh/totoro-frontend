@@ -37,40 +37,51 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
               Calendar
             </a>
           </Link>
+          <button
+            className="focus:outline-none"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          >
+            <span>
+              {theme == 'light' ? <Moon className="h-7 w-7" /> : <Sun className="h-7 w-7" />}
+            </span>
+          </button>
         </>
       )
-    else return
+    else
+      return (
+        <button
+          className="focus:outline-none"
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        >
+          <span>
+            {theme == 'light' ? <Moon className="h-7 w-7" /> : <Sun className="h-7 w-7" />}
+          </span>
+        </button>
+      )
   }
 
   return (
-    <nav className="bg-nord6 dark:bg-nord1">
-      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center">
-            <Cat className="h-14 w-14 p-0 fill-current ml-1.5" />
-            <p className="flex-inline text-lg dark:text-nord4 text-gray-100 uppercase font-semibold">
-              {name}
-            </p>
+    <nav className="bg-nord6 px-5 dark:bg-nord1">
+      <div className="max-w-full mx-auto">
+        <div className="flex items-center h-16 justify-between">
+          <Link href="/">
+            <a className="inline-flex items-center">
+              <Cat className="h-14 w-14 p-0 fill-current ml-1.5" />
+              <p className="text-lg dark:text-nord4 text-gray-100 uppercase font-semibold">
+                {name}
+              </p>
+            </a>
+          </Link>
 
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">{navItems()}</div>
-            </div>
+          <div className="hidden md:flex items-center">
+            <div className="ml-10 inline-flex space-x-4">{navItems()}</div>
           </div>
-          <div className="flex">
-            <button
-              className="inline-flex  justify-end p-2 rounded-md focus:outline-none"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            >
-              <span>
-                {theme == 'light' ? <Moon className="h-7 w-7" /> : <Sun className="h-7 w-7" />}
-              </span>
-            </button>
-          </div>
-          <div className="-mr-2 flex md:hidden">
+
+          <div className="-mr-2 md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className=" inline-flex items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+              className="items-center justify-center p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
               aria-controls="mobile-menu"
               aria-expanded="false"
             >
