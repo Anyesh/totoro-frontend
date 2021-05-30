@@ -21,6 +21,7 @@ export default function LoginForm({
           value={state.username}
           onChange={handleChange}
           className="input dark:bg-nord4"
+          autoFocus
         />
         <input
           type="password"
@@ -31,11 +32,11 @@ export default function LoginForm({
           onChange={handleChange}
           className="input dark:bg-nord4"
         />
-        <button className="btn bg-nord10 hover:bg-nord9 transition" type="submit">
+        <button className="btn bg-nord10 hover:bg-nord9" type="submit">
           Login
         </button>
-        <a className="light:text-nord10 dark:text-nord4 text-center my-2" href="#">
-          Forgot Pasword?
+        <a className="light:text-nord10 dark:text-nord4 text-left my-2 hover:text-nord10" href="#">
+          Forgot your password?
         </a>
       </form>
     </>
