@@ -14,3 +14,12 @@ h3 {
 
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .input {
+    @apply mb-3 py-3 px-4 border border-nord9 focus:outline-none rounded-md focus:ring-1;
+  }
+  .btn {
+    @apply transition duration-700  text-white p-3 rounded-lg font-semibold text-lg focus:outline-none w-full;
+  }
+}
