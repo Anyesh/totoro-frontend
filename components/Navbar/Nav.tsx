@@ -1,6 +1,6 @@
+import { Cat, Moon, Sun } from '@assets/IconComponents'
 import { Transition } from '@headlessui/react'
 import { IStore } from '@interfaces/general'
-import { Cat, Moon, Sun } from 'assets/IconComponents'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 export default function Nav({ name }: { name: string }): React.ReactElement {
   const { theme, setTheme } = useTheme()
   const [isOpen, setIsOpen] = useState(false)
-  const auth = useSelector((state: IStore) => state.auth)
+  const auth = useSelector((state: IStore) => state.authentication)
 
   const navItems = () => {
     if (auth.isAuthenticated)
@@ -43,16 +43,14 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
   }
 
   return (
-    <nav className="bg-white dark:bg-nord0">
+    <nav className="bg-nord6 dark:bg-nord1">
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <div className="flex-shrink-0 ">
-              <Cat className="h-9 w-9 fill-current ml-1.5" />
-              <p className="text-sm dark:text-nord4 text-gray-100 uppercase font-semibold text-center">
-                {name}
-              </p>
-            </div>
+            <Cat className="h-14 w-14 p-0 fill-current ml-1.5" />
+            <p className="flex-inline text-lg dark:text-nord4 text-gray-100 uppercase font-semibold">
+              {name}
+            </p>
 
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">{navItems()}</div>
