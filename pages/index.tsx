@@ -1,15 +1,25 @@
-import { IStore } from '@interfaces/general'
+import axiosInstance from '@config/axios-config'
 import { useTheme } from 'next-themes'
+import { useRouter } from 'next/dist/client/router'
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-export default function index(): React.ReactElement {
+
+function index(): React.ReactElement {
   const { theme } = useTheme()
-  const auth = useSelector((state: IStore) => state.auth)
+  const router = useRouter()
+
   useEffect(() => {
-    if (!auth.isAuthenticated) {
-      window.location.href = '/login'
-    }
-  }, [auth.isAuthenticated])
+    axiosInstance('/api/user/whoami/', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => {
+        console.log(res)
+      })
+      .catch(() => {
+        router.push('/login', undefined, { shallow: true })
+      })
+  }, [])
 
   return (
     <>
@@ -17,3 +27,5 @@ export default function index(): React.ReactElement {
     </>
   )
 }
+
+export default index
