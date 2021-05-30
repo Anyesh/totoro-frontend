@@ -1,15 +1,34 @@
+import { loginUser } from '@actions/authActions'
+import axiosInstance from '@config/axios-config'
 import { LoginUserData } from '@interfaces/user'
+import { useRouter, withRouter } from 'next/dist/client/router'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import LoginForm from './LoginForm'
 
 const pageDescriptions = 'Totoro is an AI-enalbled social networking web application.'
 
-export default function Login(): React.ReactElement {
+function Login(): React.ReactElement {
+  const dispatch = useDispatch()
+  const router = useRouter()
+
   const [state, stateSet] = useState<LoginUserData>({
-    userName: '',
+    username: '',
     password: '',
   })
+
+  useEffect(() => {
+    axiosInstance('/api/user/whoami/', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(() => {
+        router.push('/', undefined, { shallow: true })
+      })
+      .catch((err) => console.log(err.response))
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value }: { name: string; value: string } = e.target
@@ -20,10 +39,13 @@ export default function Login(): React.ReactElement {
     }))
   }
 
+  // const auth = useSelector((state: IStore) => state.authentication)
+
   const handleSubmission = (e: React.SyntheticEvent): void => {
     e.preventDefault()
-    console.log(state.userName)
-    console.log(state.password)
+
+    const userData = { username: state.username, password: state.password }
+    dispatch(loginUser(userData))
   }
 
   return (
@@ -40,10 +62,12 @@ export default function Login(): React.ReactElement {
 
         <hr className="opacity-30" />
 
-        <div className="text-center bg-nord11 hover:opacity-70 transition duration-700 mt-4 mb-4 text-white p-3 rounded-lg font-semibold text-lg block">
+        <div className="btn text-center bg-nord11  mt-4 mb-4">
           <Link href="/signup">Create New Account</Link>
         </div>
       </div>
     </div>
   )
 }
+
+export default withRouter(Login)
