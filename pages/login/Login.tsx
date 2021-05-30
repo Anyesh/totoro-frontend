@@ -1,10 +1,11 @@
 import { loginUser } from '@actions/authActions'
 import axiosInstance from '@config/axios-config'
 import { LoginUserData } from '@interfaces/user'
-import { useRouter, withRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/dist/client/router'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useToasts } from 'react-toast-notifications'
 import LoginForm from './LoginForm'
 
 const pageDescriptions = 'Totoro is an AI-enalbled social networking web application.'
@@ -12,12 +13,12 @@ const pageDescriptions = 'Totoro is an AI-enalbled social networking web applica
 function Login(): React.ReactElement {
   const dispatch = useDispatch()
   const router = useRouter()
+  const { addToast } = useToasts()
 
   const [state, stateSet] = useState<LoginUserData>({
     username: '',
     password: '',
   })
-
   useEffect(() => {
     axiosInstance('/api/user/whoami/', {
       headers: {
@@ -27,7 +28,12 @@ function Login(): React.ReactElement {
       .then(() => {
         router.push('/', undefined, { shallow: true })
       })
-      .catch((err) => console.log(err.response))
+      .catch((err) => {
+        addToast(err.response.data.detail, {
+          appearance: 'error',
+          autoDismiss: true,
+        })
+      })
   }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -49,7 +55,7 @@ function Login(): React.ReactElement {
   }
 
   return (
-    <div className="lg:pl-20 lg:pr-20 md:pl-10 md:pr-10 sm:p-5 h-screen w-screen grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 items-center justify-center ">
+    <div className="lg:pl-20 lg:pr-20 md:pl-10 md:pr-10 sm:p-5 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 items-center justify-center ">
       <div className="text-3xl text-center sm:text-center mx-auto md:text-left w-full">
         <h1 className="text-5xl lg:text-left light:text-nord1 dark:text-nord4 font-bold">Totoro</h1>
         <p className="dark:text-nord4 light:text-nord0">{pageDescriptions}</p>
@@ -60,14 +66,13 @@ function Login(): React.ReactElement {
 
         <LoginForm state={state} handleSubmission={handleSubmission} handleChange={handleChange} />
 
-        <hr className="opacity-30" />
-
-        <div className="btn text-center bg-nord11  mt-4 mb-4">
-          <Link href="/signup">Create New Account</Link>
-        </div>
+        <hr className="opacity-20" />
+        <Link href="/signup">
+          <a className="btn hover:opacity-80 text-center bg-nord11 mt-4 mb-4">Create New Account</a>
+        </Link>
       </div>
     </div>
   )
 }
 
-export default withRouter(Login)
+export default Login
