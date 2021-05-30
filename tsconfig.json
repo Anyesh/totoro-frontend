@@ -17,6 +17,8 @@
     "paths": {
       "@actions": ["actions"],
       "@actions/*": ["actions/*"],
+      "@assets": ["assets"],
+      "@assets/*": ["assets/*"],
       "@config": ["config"],
       "@config/*": ["config/*"],
       "@utils": ["utils"],

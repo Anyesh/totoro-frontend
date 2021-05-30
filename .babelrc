@@ -7,10 +7,11 @@
         "root": ["./"],
         "alias": {
           "@actions": "./actions",
+          "@assets": "./assets",
+
           "@hooks": "./hooks",
           "@config": "./config",
           "@utils": "./utils",
-
           "@store": "./store",
           "@components": "./components",
           "@constants": "./constants",
