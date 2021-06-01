@@ -1,7 +1,6 @@
 // import { loginUser } from '@actions/authActions'
 
-import { Google } from '@assets/IconComponents'
-import { LoginUserData } from '@types'
+import { Discord, Github, Google } from '@assets/IconComponents'
 import { GetServerSideProps } from 'next'
 import { Session } from 'next-auth'
 import { getProviders, getSession, signIn } from 'next-auth/client'
@@ -10,9 +9,13 @@ import { useRouter } from 'next/dist/client/router'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useToasts } from 'react-toast-notifications'
-import LoginForm from './LoginForm'
 
 const pageDescriptions = 'Totoro is an AI-enabled social networking web application.'
+
+interface IProvider {
+  id: string
+  name: string
+}
 
 function Login({
   providers,
@@ -24,7 +27,7 @@ function Login({
   const router = useRouter()
   const { addToast } = useToasts()
 
-  const [loading, loadingSet] = useState<boolean>(false)
+  const [loading, loadingSet] = useState<string | null>()
   // const [submission, submissionSet] = useState<boolean>(false)
 
   useEffect(() => {
@@ -32,7 +35,7 @@ function Login({
       router.push('/')
 
       return () => {
-        loadingSet(false)
+        loadingSet(null)
 
         addToast('Logged in succesfully!', {
           appearance: 'success',
@@ -42,34 +45,44 @@ function Login({
     }
   }, [])
 
-  const [state, stateSet] = useState<LoginUserData>({
-    username: '',
-    password: '',
-  })
+  // const [state, stateSet] = useState<LoginUserData>({
+  //   username: '',
+  //   password: '',
+  // })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value }: { name: string; value: string } = e.target
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  //   const { name, value }: { name: string; value: string } = e.target
 
-    stateSet((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }))
-  }
+  //   stateSet((prevState) => ({
+  //     ...prevState,
+  //     [name]: value,
+  //   }))
+  // }
 
   // const auth = useSelector((state: IStore) => state.authentication)
 
-  const handleSubmission = (e: React.SyntheticEvent): void => {
-    e.preventDefault()
+  const getProviderIcon = (provider: string): React.ReactElement => {
+    switch (provider) {
+      case 'Google':
+        return <Google className={loading === provider ? 'mr-3 animate-spin' : 'mr-3'} />
 
-    const userData = { username: state.username, password: state.password }
-    console.log(userData)
+      case 'GitHub':
+        return <Github className={loading === provider ? 'mr-3 animate-spin' : 'mr-3'} />
+
+      case 'Discord':
+        return <Discord className={loading === provider ? 'mr-3 animate-spin' : 'mr-3'} />
+
+      default:
+        return <></>
+    }
   }
 
-  const handleSignIn = (e: React.SyntheticEvent, id: string) => {
+  const handleSignIn = (e: React.SyntheticEvent, provider: IProvider) => {
     e.preventDefault()
-    loadingSet(true)
+
+    loadingSet(provider.name)
     setTimeout(() => {
-      signIn(id)
+      signIn(provider.id)
     }, 1.5 * 1000)
   }
 
@@ -88,20 +101,20 @@ function Login({
             Object.values(providers).map((provider) => (
               <div key={provider.name}>
                 <button
-                  onClick={(e) => handleSignIn(e, provider.id)}
-                  className="btn hover:opacity-80 bg-nord11 items-center inline-flex justify-center "
+                  onClick={(e) => handleSignIn(e, provider)}
+                  className={`btn hover:opacity-80 items-center inline-flex justify-center mt-3 mb-3 ${provider.name} fill-current disabled:cursor-not-allowed`}
                   disabled={loading ? true : false}
                   type="button"
                 >
-                  <Google className={loading ? 'mr-3 animate-spin' : 'mr-3'} />
+                  {getProviderIcon(provider.name)}
 
                   <span> Continue with {provider.name}</span>
                 </button>
               </div>
             ))}
         </div>
-        <hr className="opacity-20 hr-text " data-content="OR" />
-        <LoginForm state={state} handleSubmission={handleSubmission} handleChange={handleChange} />
+        {/* <hr className="opacity-20 hr-text " data-content="OR" />
+        <LoginForm state={state} handleSubmission={handleSubmission} handleChange={handleChange} /> */}
 
         {/* <Link href="/signup">
           <a className="btn hover:opacity-80 text-center bg-nord11 mt-4 mb-4">Create New Account</a>
