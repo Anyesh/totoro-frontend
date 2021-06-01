@@ -22,6 +22,17 @@ h3 {
   .btn {
     @apply transition duration-700  text-white p-3 rounded-lg font-semibold text-lg focus:outline-none block w-full;
   }
+
+  .Google {
+    @apply bg-nord11;
+  }
+  .GitHub {
+    @apply bg-nord0;
+  }
+
+  .Discord {
+    @apply bg-nord10;
+  }
 }
 
 .hr-text {
