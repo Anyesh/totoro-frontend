@@ -1,48 +1,58 @@
 import { Layout } from '@components/Layout'
-import axiosInstance from '@config/axios-config'
-import { useStore } from '@store'
+import { AuthProvider } from '@providers/Auth'
+import { NextPageContext } from 'next'
+import { getSession, Provider } from 'next-auth/client'
 import { ThemeProvider } from 'next-themes'
-import { AppProps } from 'next/app'
-import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
-import { Provider } from 'react-redux'
+import App, { AppContext, AppInitialProps, AppProps } from 'next/app'
+import React from 'react'
 import { ToastProvider } from 'react-toast-notifications'
 import '../styles/globals.css'
 
-const Totoro = ({ Component, pageProps }: AppProps): React.ReactElement => {
-  // async function getInitialProps({ Component, ctx }: AppContext): Promise<AppInitialProps> {
-  //   const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {}
+interface AuthAppProps extends AppProps {
+  authenticated: boolean
+}
 
-  //   return { pageProps }
-  // }
-
-  const store = useStore(pageProps.initialReduxState)
-
-  const router = useRouter()
-
-  useEffect(() => {
-    axiosInstance('/api/user/whoami/', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => console.log(res.data))
-      .catch(() => {
-        router.push('/login')
-      })
-  }, [])
-
+const Totoro = ({ Component, pageProps, authenticated }: AuthAppProps): React.ReactElement => {
   return (
-    <Provider store={store}>
-      <ThemeProvider attribute="class">
-        <ToastProvider autoDismiss autoDismissTimeout={6000} placement="bottom-right">
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ToastProvider>
-      </ThemeProvider>
+    <Provider
+      session={pageProps.session}
+      // options={{
+      //   clientMaxAge: 60,
+      //   keepAlive: 5 * 60,
+      // }}
+    >
+      <AuthProvider authenticated={authenticated}>
+        <ThemeProvider attribute="class">
+          <ToastProvider autoDismiss autoDismissTimeout={6000} placement="bottom-right">
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ToastProvider>
+        </ThemeProvider>
+      </AuthProvider>
     </Provider>
   )
 }
+
+Totoro.getInitialProps = async (
+  context: unknown
+): Promise<AppInitialProps & { authenticated: boolean }> => {
+  const session = await getSession(context as NextPageContext)
+
+  // Call the page's `getInitialProps` and fill `appProps.pageProps`
+  const appProps = await App.getInitialProps(context as AppContext)
+
+  return { ...appProps, authenticated: !!session }
+}
+
+// export const getServerSiderProps = async (
+//   context
+// ): Promise<AppInitialProps & { authenticated: boolean }> => {
+//   const session = await getSession(context)
+//   // Call the page's `getInitialProps` and fill `appProps.pageProps`
+//   const appProps = await App.getInitialProps(context)
+
+//   return { ...appProps, authenticated: !!session }
+// }
 
 export default Totoro
