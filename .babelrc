@@ -8,7 +8,8 @@
         "alias": {
           "@actions": "./actions",
           "@assets": "./assets",
-
+          "@providers": "./providers",
+          "@hocs": "./hocs",
           "@hooks": "./hooks",
           "@config": "./config",
           "@utils": "./utils",
@@ -17,7 +18,7 @@
           "@constants": "./constants",
           "@validations": "./validations",
           "@definitions": "./definitions",
-          "@interfaces": "./interfaces",
+          "@types": "./@types",
           "@pages": "./pages",
           "@reducers": "./reducers",
           "@services": "./services",
