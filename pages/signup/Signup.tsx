@@ -4,7 +4,7 @@ import SignupForm from './SignupForm'
 
 const pageDescriptions = 'Totoro is an AI-enalbled social networking web application.'
 
-export default function Signup(): React.ReactElement {
+function Signup(): React.ReactElement {
   return (
     <div className="lg:pl-20 lg:pr-20 md:pl-10 md:pr-10 sm:p-5 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 items-center justify-center">
       <div className="text-3xl text-center sm:text-center mx-auto md:text-left w-full">
@@ -36,3 +36,5 @@ export default function Signup(): React.ReactElement {
     </div>
   )
 }
+
+export default Signup
