@@ -1,4 +1,4 @@
-import { LoginUserData } from '@interfaces/user'
+import { LoginUserData } from '@types'
 import React from 'react'
 
 export default function LoginForm({
@@ -35,7 +35,10 @@ export default function LoginForm({
         <button className="btn bg-nord10 hover:bg-nord9" type="submit">
           Login
         </button>
-        <a className="light:text-nord10 dark:text-nord4 text-left my-2 hover:text-nord10" href="#">
+        <a
+          className="light:text-nord10 dark:text-nord4 my-2 hover:text-nord10 text-center"
+          href="#"
+        >
           Forgot your password?
         </a>
       </form>
