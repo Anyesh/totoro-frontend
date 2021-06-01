@@ -1,31 +1,24 @@
-import axiosInstance from '@config/axios-config'
-import { useTheme } from 'next-themes'
-import { useRouter } from 'next/dist/client/router'
-import React, { useEffect } from 'react'
+import Loading from '@components/Common/Loading'
+import withAuth from '@hocs/withAuth'
+import { Session } from 'next-auth'
+import { signOut } from 'next-auth/client'
+import Link from 'next/link'
+import React from 'react'
 
-function index(): React.ReactElement {
-  const { theme } = useTheme()
-  const router = useRouter()
-
-  useEffect(() => {
-    axiosInstance('/api/user/whoami/', {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => {
-        console.log(res)
-      })
-      .catch(() => {
-        router.push('/login', undefined, { shallow: true })
-      })
-  }, [])
+function index(props: { session: Session }) {
+  const { session } = props
 
   return (
-    <>
-      <div className="light:bg-white dark:bg-nord0 h-full">Current model: {theme}</div>
-    </>
+    session && (
+      <>
+        <Loading />
+        Signed in as {session?.user?.email} <br />
+        <button onClick={() => signOut()}>Sign out</button>
+        {session.accessToken && <pre>User has access token</pre>}
+        <Link href="/posts">Go to posts</Link>
+      </>
+    )
   )
 }
 
-export default index
+export default withAuth(index)
