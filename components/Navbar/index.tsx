@@ -8,6 +8,10 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
   const { theme, setTheme } = useTheme()
   const [isOpen, setIsOpen] = useState(false)
 
+  // function classNames(...classes) {
+  //   return classes.filter(Boolean).join(' ')
+  // }
+
   const { isAuthenticated } = useAuthState()
 
   const navItems = () => {
@@ -15,28 +19,11 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
       return (
         <>
           <Link href="/user">
-            <a className="dark:text-gray-50 block text-right hover:bg-gray-700 text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+            <a className="dark:text-gray-50 block text-right hover:bg-gray-700 text-gray-300 hover:text-white px-3 py-2 text-sm font-medium rounded-md ">
               User
             </a>
           </Link>
 
-          <Link href="#">
-            <a className="dark:text-gray-50 block text-right text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-              Team
-            </a>
-          </Link>
-
-          <Link href="#">
-            <a className="dark:text-gray-50 block text-right text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-              Projects
-            </a>
-          </Link>
-
-          <Link href="#">
-            <a className="dark:text-gray-50 block text-right text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-              Calendar
-            </a>
-          </Link>
           <button
             className="focus:outline-none"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
