@@ -1,7 +1,6 @@
-import withAuth from '@hocs/withAuth'
 import React from 'react'
 
-function welcome() {
+function welcome(): React.ReactElement {
   return (
     <div>
       <h1>Welcome new user</h1>
@@ -9,4 +8,4 @@ function welcome() {
   )
 }
 
-export default withAuth(welcome)
+export default welcome
