@@ -29,7 +29,7 @@ export const refreshToken = async function (refreshToken: string): Promise<strin
 }
 
 const settings: NextAuthOptions = {
-  pages: { signIn: '/login', newUser: '/welcome' },
+  pages: { signIn: '/login', error: '/welcome' },
   secret: process.env.SESSION_SECRET,
   session: {
     jwt: true,
@@ -44,13 +44,22 @@ const settings: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
+    Providers.GitHub({
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    }),
+
+    Providers.Discord({
+      clientId: process.env.DISCORD_CLIENT_ID,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET,
+    }),
   ],
   callbacks: {
     async jwt(token, user, account) {
       // user just signed in
       if (user) {
         // may have to switch it up a bit for other providers
-        if (account?.provider === 'google') {
+        if (account?.provider) {
           // extract these two tokens
           const { accessToken, idToken } = account
 
