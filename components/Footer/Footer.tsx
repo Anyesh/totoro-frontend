@@ -1,9 +1,7 @@
-import { IStore } from '@interfaces/general'
+import { useAuthState } from '@providers/Auth'
 import React from 'react'
-import { useSelector } from 'react-redux'
 export default function Footer({ name }: { name: string }): React.ReactElement {
-  const auth = useSelector((state: IStore) => state.authentication)
-
+  const { isAuthenticated } = useAuthState()
   const authFooter: JSX.Element = <div>HELLO</div>
 
   const unAuthFooter: JSX.Element = (
@@ -43,7 +41,7 @@ export default function Footer({ name }: { name: string }): React.ReactElement {
 
   return (
     <footer className="bg-white p-6  dark:bg-nord0 dark:text-white drop-shadow-sm">
-      {auth.isAuthenticated ? authFooter : unAuthFooter}
+      {isAuthenticated ? authFooter : unAuthFooter}
     </footer>
   )
 }

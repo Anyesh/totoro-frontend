@@ -1,22 +1,22 @@
 import { Cat, Moon, Sun } from '@assets/IconComponents'
 import { Transition } from '@headlessui/react'
-import { IStore } from '@interfaces/general'
+import { useAuthState } from '@providers/Auth'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
 export default function Nav({ name }: { name: string }): React.ReactElement {
   const { theme, setTheme } = useTheme()
   const [isOpen, setIsOpen] = useState(false)
-  const auth = useSelector((state: IStore) => state.authentication)
+
+  const { isAuthenticated } = useAuthState()
 
   const navItems = () => {
-    if (auth.isAuthenticated)
+    if (isAuthenticated)
       return (
         <>
-          <Link href="#">
+          <Link href="/user">
             <a className="dark:text-gray-50 block text-right hover:bg-gray-700 text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-              Home
+              User
             </a>
           </Link>
 
