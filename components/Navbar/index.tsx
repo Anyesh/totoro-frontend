@@ -1,35 +1,74 @@
-import { Cat, Moon, Sun } from '@assets/IconComponents'
+import { handleLogout } from '@actions/auth'
+import { Cat, Gear, Moon, Sun } from '@assets/IconComponents'
 import { Transition } from '@headlessui/react'
-import { useAuthState } from '@providers/Auth'
+import { useSession } from 'next-auth/client'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 export default function Nav({ name }: { name: string }): React.ReactElement {
   const { theme, setTheme } = useTheme()
   const [isOpen, setIsOpen] = useState(false)
 
-  // function classNames(...classes) {
-  //   return classes.filter(Boolean).join(' ')
-  // }
+  const [session, loading] = useSession()
+  const navRef = useRef(null)
 
-  const { isAuthenticated } = useAuthState()
+  const isAuthenticated = !loading && !!session
 
   const navItems = () => {
     if (isAuthenticated)
       return (
         <>
-          <Link href="/user">
-            <a className="dark:text-gray-50 block text-right hover:bg-gray-700 text-gray-300 hover:text-white px-3 py-2 text-sm font-medium rounded-md ">
-              User
+          <Link href={`/u/@${session?.user?.name}`}>
+            <a className="dark:text-nord4 block text-right hover:bg-nord10 text-nord3 hover:text-white px-3 py-2 text-sm font-medium rounded-md ">
+              <img
+                src={`${session?.user?.image}`}
+                alt={`${session?.user?.name}`}
+                className="rounded-full w-10 h-10 inline-flex align-middle p-1"
+              />
+              {session?.user?.name}
             </a>
           </Link>
 
+          <div className="group relative">
+            <button className="focus:outline-none mt-3">
+              <Gear className="fill-current" />
+            </button>
+            <ul className="hidden absolute bg-nord4  pt-1 group-hover:block">
+              <li className="">
+                <a
+                  className="rounded-t  hover:bg-nord10 py-2 px-4 block whitespace-no-wrap"
+                  href="#"
+                >
+                  One
+                </a>
+              </li>
+              <li className="">
+                <a className=" hover:bg-nord10 py-2 px-4 block whitespace-no-wrap" href="#">
+                  Two
+                </a>
+              </li>
+              <li className="">
+                <button
+                  className="rounded-b  hover:bg-nord10 py-2 px-4 block whitespace-no-wrap"
+                  type="button"
+                  onClick={() => handleLogout()}
+                >
+                  logout
+                </button>
+              </li>
+            </ul>
+          </div>
+
           <button
-            className="focus:outline-none"
+            className="focus:outline-none p-2"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           >
             <span>
-              {theme == 'light' ? <Moon className="h-7 w-7" /> : <Sun className="h-7 w-7" />}
+              {theme == 'light' ? (
+                <Moon className="fill-current" />
+              ) : (
+                <Sun className="fill-current" />
+              )}
             </span>
           </button>
         </>
@@ -37,11 +76,15 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
     else
       return (
         <button
-          className="focus:outline-none"
+          className="focus:outline-none p-2"
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
         >
           <span>
-            {theme == 'light' ? <Moon className="h-7 w-7" /> : <Sun className="h-7 w-7" />}
+            {theme == 'light' ? (
+              <Moon className="fill-current" />
+            ) : (
+              <Sun className="fill-current" />
+            )}
           </span>
         </button>
       )
@@ -61,7 +104,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
           </Link>
 
           <div className="hidden md:flex items-center">
-            <div className="ml-10 inline-flex space-x-4">{navItems()}</div>
+            <div className="ml-10 inline-flex space-x-4 align-middle">{navItems()}</div>
           </div>
 
           <div className="-mr-2 md:hidden">
@@ -120,13 +163,11 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
         leaveFrom="opacity-100 scale-100"
         leaveTo="opacity-0 scale-95"
       >
-        {(ref) => (
-          <div className="md:hidden" id="mobile-menu">
-            <div ref={ref} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {navItems()}
-            </div>
+        <div className="md:hidden" id="mobile-menu">
+          <div ref={navRef} className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            {navItems()}
           </div>
-        )}
+        </div>
       </Transition>
     </nav>
   )
