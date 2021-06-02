@@ -22,6 +22,9 @@ h3 {
   .btn {
     @apply transition duration-700  text-white p-3 rounded-lg font-semibold text-lg focus:outline-none block w-full;
   }
+  .btn-disable {
+    @apply cursor-not-allowed opacity-50;
+  }
 
   .Google {
     @apply bg-nord11;
