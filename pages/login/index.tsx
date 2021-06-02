@@ -37,7 +37,7 @@ function Login({
       return () => {
         loadingSet(null)
 
-        addToast('Logged in succesfully!', {
+        addToast(`Welcome to totoro ${session?.user?.name}`, {
           appearance: 'success',
           autoDismiss: true,
         })
@@ -102,7 +102,7 @@ function Login({
               <div key={provider.name}>
                 <button
                   onClick={(e) => handleSignIn(e, provider)}
-                  className={`btn hover:opacity-80 items-center inline-flex justify-center mt-3 mb-3 ${provider.name} fill-current disabled:cursor-not-allowed`}
+                  className={`btn hover:opacity-80 items-center inline-flex justify-center mt-3 mb-3 ${provider.name} fill-current disabled:btn-disable`}
                   disabled={loading ? true : false}
                   type="button"
                 >
