@@ -10,6 +10,10 @@ import Providers from 'next-auth/providers'
 // }
 
 interface ServerData {
+  user: {
+    pk: string
+    username: string
+  }
   access_token: string
   refresh_token: string
 }
@@ -29,7 +33,7 @@ export const refreshToken = async function (refreshToken: string): Promise<strin
 }
 
 const settings: NextAuthOptions = {
-  pages: { signIn: '/login', error: '/welcome' },
+  pages: { signIn: '/login', error: '/error' },
   secret: process.env.SESSION_SECRET,
   session: {
     jwt: true,
@@ -38,7 +42,7 @@ const settings: NextAuthOptions = {
   jwt: {
     secret: process.env.JWT_SECRET || 'totoro-secret',
   },
-  debug: process.env.NODE_ENV === 'development',
+  debug: false, //process.env.NODE_ENV === 'development',
   providers: [
     Providers.Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -55,21 +59,20 @@ const settings: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt(token, user, account) {
-      // user just signed in
+    jwt: async (token, user, account, profile, isNewUser) => {
       if (user) {
-        // may have to switch it up a bit for other providers
+        console.log('user', user)
+        console.log('account', account)
+        console.log('profile', profile)
+        console.log('newuser', isNewUser)
         if (account?.provider) {
-          // extract these two tokens
           const { accessToken, idToken } = account
 
-          let token = {}
+          let local_token = {}
 
           try {
             // make a POST request to the DRF backend
             const tokenPromise = await axios.post<ServerData>(
-              // tip: use a seperate .ts file or json file to store such URL endpoints
-              // "http://127.0.0.1:8000/api/social/login/google/",
               makeUrl(ROOT_API, 'social', account.provider),
               {
                 access_token: accessToken, // note the differences in key and value variable names
@@ -78,17 +81,18 @@ const settings: NextAuthOptions = {
             )
 
             // extract the returned token from the DRF backend and add it to the `user` object
-            const { access_token, refresh_token } = tokenPromise.data
+            const { access_token, refresh_token, user } = tokenPromise.data
             // reform the `token` object from the access token we appended to the `user` object
-            token = {
+            local_token = {
               ...token,
+              ...user,
               accessToken: access_token,
               refreshToken: refresh_token,
             }
           } catch (err) {
-            token = {}
+            local_token = {}
           }
-          return token
+          return local_token
         }
       }
 
@@ -120,7 +124,12 @@ const settings: NextAuthOptions = {
       return token
     },
 
-    async session(session, userOrToken) {
+    session: async (session, userOrToken) => {
+      session.user = {
+        email: userOrToken?.email,
+        name: userOrToken?.username as string,
+        image: userOrToken?.picture as string,
+      }
       session.accessToken = userOrToken.accessToken
       return session
     },
