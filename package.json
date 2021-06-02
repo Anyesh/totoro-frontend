@@ -9,10 +9,26 @@
     "svgr": "svgr assets/icons -d assets/IconComponents --config-file .svgrrc.json --svgo-config .svgorc.json",
     "check-types": "tsc --pretty --noEmit",
     "check-format": "prettier --check .",
-    "check-lint": "eslint . --ext ts --ext tsx --ext js",
+    "check-lint": "eslint . --ext ts --ext tsx --ext js --quiet --fix",
     "format": "prettier --write .",
-    "test-all": "npm run check-format && npm run check-lint",
-    "prepare": "husky install"
+    "test-all": "npm run check-format && npm run check-lint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix -f git-log",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{ts,tsx}/": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{ts,css,md}": "prettier --write"
   },
   "dependencies": {
     "@headlessui/react": "^1.2.0",
@@ -51,6 +67,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.23.2",
     "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "postcss": "^8.2.13",
     "prettier": "^2.2.1",
     "tailwind-nord": "^1.2.0",
