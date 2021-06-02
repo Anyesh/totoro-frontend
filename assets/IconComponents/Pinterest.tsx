@@ -9,8 +9,8 @@ function SvgPinterest(props: React.SVGProps<SVGSVGElement>) {
       strokeMiterlimit={2}
       clipRule="evenodd"
       viewBox="0 0 512 512"
-      width="22.5"
-      height="22.5"
+      width="30"
+      height="30"
       {...props}
     >
       <g fillRule="nonzero">

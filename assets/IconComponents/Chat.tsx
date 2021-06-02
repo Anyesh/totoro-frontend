@@ -2,13 +2,7 @@ import * as React from 'react'
 
 function SvgChat(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 110 110"
-      width="22.5"
-      height="22.5"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 110" width="30" height="30" {...props}>
       <circle cx={55} cy={55} r={55} fill="#25b7d3" />
       <path
         fill="#6fdaf1"

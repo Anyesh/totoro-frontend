@@ -1,5 +1,7 @@
 export { default as Cat } from './Cat'
 export { default as Chat } from './Chat'
+export { default as Discord } from './Discord'
+export { default as Gear } from './Gear'
 export { default as Github } from './Github'
 export { default as Google } from './Google'
 export { default as Loadin } from './Loadin'

@@ -5,8 +5,8 @@ function SvgGoogle(props: React.SVGProps<SVGSVGElement>) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 56.7 56.7"
-      width="22.5"
-      height="22.5"
+      width="30"
+      height="30"
       {...props}
     >
       <path
