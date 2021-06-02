@@ -6,6 +6,11 @@ import { AppInitialProps } from 'next/app'
 import { Store } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 
+export interface IAuthUserData {
+  user_id?: string
+  username?: string
+}
+
 export interface AuthenticatedUser extends User {
   accessToken?: string
   refreshToken?: string
