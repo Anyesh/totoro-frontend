@@ -8,8 +8,8 @@
   },
   "ignoreExisting": true,
   "svgProps": {
-    "width": "22.5",
-    "height": "22.5"
+    "width": "30",
+    "height": "30"
   },
   "replaceAttrValues": {
     "#fff": "currentColor"
