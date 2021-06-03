@@ -18,11 +18,11 @@ function User({ session }: { session: Session }): React.ReactElement {
     }
 
     const getDetails = async () => {
-      const d = await getUserDetails()
+      const d = await getUserDetails(session?.accessToken)
       setPosts(d)
     }
     getDetails()
-  }, [session])
+  }, [])
 
   return (
     <div>
