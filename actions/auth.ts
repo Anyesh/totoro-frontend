@@ -1,4 +1,6 @@
 import { ROOT_API } from '@config'
+import axiosInstance from '@config/axios-config'
+import { IAuthUserData } from '@types'
 import axios from 'axios'
 
 interface ServerData {
@@ -16,7 +18,7 @@ interface IDRFData {
   idToken: string | undefined
 }
 
-export const handleLogout = () => {
+export const handleLogout = (): void => {
   axios
     .post(ROOT_API + '/auth/logout/')
     .then((res) => console.log(res.data))
@@ -69,12 +71,13 @@ export const refreshTokenFromDRF = async function (
   }
 }
 
-export const getUserDetails = async () => {
-  const response = await axios.get(ROOT_API + '/user/ping/')
+export const getUserDetails = async (token: string): Promise<IAuthUserData | null> => {
+  const req = await axiosInstance(token)
+  const response = await req.get('/user/ping/')
 
   if (response?.data) {
     const postData = await response.data
-    return Promise.resolve(postData)
+    return postData
   } else {
     return {}
   }
