@@ -1,6 +1,9 @@
+import dynamic from 'next/dynamic'
 import React from 'react'
-import { Footer } from '../Footer'
-import Nav from '../Navbar'
+
+const Nav = dynamic(() => import('../Navbar'), { ssr: false })
+
+const Footer = dynamic(() => import('../Footer'), { ssr: false })
 
 export default function Layout({ children }: { children: React.ReactNode }): React.ReactElement {
   const NAME = 'Totoro'

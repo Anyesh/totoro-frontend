@@ -1,16 +1,16 @@
 import { handleLogout } from '@actions/auth'
-import { Cat, Gear, Moon, Sun } from '@assets/IconComponents'
-import { Transition } from '@headlessui/react'
+import { Cat, Moon, Sun } from '@assets/IconComponents'
+import { Menu, Transition } from '@headlessui/react'
 import { useSession } from 'next-auth/client'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import React, { useRef, useState } from 'react'
+import React from 'react'
 export default function Nav({ name }: { name: string }): React.ReactElement {
   const { theme, setTheme } = useTheme()
-  const [isOpen, setIsOpen] = useState(false)
+  // const [isOpen, setIsOpen] = useState(false)
 
   const [session, loading] = useSession()
-  const navRef = useRef(null)
+  // const navRef = useRef(null)
 
   const isAuthenticated = !loading && !!session
 
@@ -18,45 +18,70 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
     if (isAuthenticated)
       return (
         <>
-          <Link href={`/u/@${session?.user?.name}`}>
-            <a className="dark:text-nord4 block text-right hover:bg-nord10 text-nord3 hover:text-white px-3 py-2 text-sm font-medium rounded-md ">
-              <img
-                src={`${session?.user?.image}`}
-                alt={`${session?.user?.name}`}
-                className="rounded-full w-10 h-10 inline-flex align-middle p-1"
-              />
-              {session?.user?.name}
-            </a>
-          </Link>
+          <div className="flex items-center">
+            <div className="relative inline-block text-left">
+              <Menu>
+                {({ open }) => (
+                  <>
+                    <Menu.Button className="hover:bg-nord10 text-nord3 hover:text-white dark:text-nord4 px-3 py-2 text-sm font-medium rounded-md focus:outline-none inline-flex items-center">
+                      <img
+                        src={`${session?.user?.image}`}
+                        alt={`${session?.user?.name}`}
+                        className="rounded-full w-10 h-10 inline-flex align-middle p-1"
+                      />
+                      <span className="hidden md:flex">{session?.user?.name}</span>
 
-          <div className="group relative">
-            <button className="focus:outline-none mt-3">
-              <Gear className="fill-current" />
-            </button>
-            <ul className="hidden absolute bg-nord4  pt-1 group-hover:block">
-              <li className="">
-                <a
-                  className="rounded-t  hover:bg-nord10 py-2 px-4 block whitespace-no-wrap"
-                  href="#"
-                >
-                  One
-                </a>
-              </li>
-              <li className="">
-                <a className=" hover:bg-nord10 py-2 px-4 block whitespace-no-wrap" href="#">
-                  Two
-                </a>
-              </li>
-              <li className="">
-                <button
-                  className="rounded-b  hover:bg-nord10 py-2 px-4 block whitespace-no-wrap"
-                  type="button"
-                  onClick={() => handleLogout()}
-                >
-                  logout
-                </button>
-              </li>
-            </ul>
+                      {/* <Gear className="fill-current p-0" /> */}
+                    </Menu.Button>
+
+                    <Transition
+                      show={open}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white border  divide-y divide-gray-100 rounded-md shadow-lg outline-none">
+                        <div className="px-4 py-3 mt-2">
+                          <p className="text-sm leading-5">Signed in as</p>
+                          <p className="text-sm font-medium leading-5 text-gray-900 truncate">
+                            {session?.user?.email}
+                          </p>
+                        </div>
+
+                        <div className="py-1 mt-3">
+                          <hr />
+                          <Menu.Item>
+                            <Link href={`/u/@${session?.user?.name}`}>
+                              <a
+                                className="text-gray-700 hover:text-nord11 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
+                                role="button"
+                              >
+                                Profile
+                              </a>
+                            </Link>
+                          </Menu.Item>
+                        </div>
+
+                        <div className="py-1">
+                          <Menu.Item>
+                            <button
+                              className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
+                              onClick={() => handleLogout()}
+                              type="button"
+                            >
+                              Sign out
+                            </button>
+                          </Menu.Item>
+                        </div>
+                      </Menu.Items>
+                    </Transition>
+                  </>
+                )}
+              </Menu>
+            </div>
           </div>
 
           <button
@@ -103,11 +128,11 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
             </a>
           </Link>
 
-          <div className="hidden md:flex items-center">
+          <div className="flex items-center">
             <div className="ml-10 inline-flex space-x-4 align-middle">{navItems()}</div>
           </div>
 
-          <div className="-mr-2 md:hidden">
+          {/* <div className="-mr-2 md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
@@ -151,10 +176,13 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
               )}
             </button>
           </div>
+       
+        
+         */}
         </div>
       </div>
 
-      <Transition
+      {/* <Transition
         show={isOpen}
         enter="transition ease-out duration-100 transform"
         enterFrom="opacity-0 scale-95"
@@ -168,7 +196,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
             {navItems()}
           </div>
         </div>
-      </Transition>
+      </Transition> */}
     </nav>
   )
 }

@@ -1,5 +1,6 @@
 import { useAuthState } from '@providers/Auth'
 import React from 'react'
+
 export default function Footer({ name }: { name: string }): React.ReactElement {
   const { isAuthenticated } = useAuthState()
   const authFooter: JSX.Element = <div>HELLO</div>
