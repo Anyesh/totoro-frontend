@@ -1,13 +1,23 @@
 import { ROOT_API } from '@config'
-import axios from 'axios'
+import { isJwtExpired } from '@utils/jwt'
+import axios, { AxiosInstance } from 'axios'
+import { getSession } from 'next-auth/client'
 
-const axiosInstance = axios.create({
-  withCredentials: true,
-  baseURL: ROOT_API,
-})
+const axiosInstance = async (token: string): Promise<AxiosInstance> => {
+  let localToken = token
+  // check for expired token
+  if (isJwtExpired(token)) {
+    const session = await getSession()
 
-axiosInstance.defaults.withCredentials = true
-axiosInstance.defaults.xsrfCookieName = 'csrftoken'
-axiosInstance.defaults.xsrfHeaderName = 'X-CSRFToken'
-
+    if (session) {
+      localToken = session.accessToken as string
+    }
+  }
+  const axiosInstance = axios.create({
+    withCredentials: true,
+    baseURL: ROOT_API,
+    headers: { Authorization: 'Bearer ' + localToken },
+  })
+  return axiosInstance
+}
 export default axiosInstance
