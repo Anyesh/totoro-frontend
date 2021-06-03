@@ -1,16 +1,14 @@
 import { getUserDetails } from '@actions/auth'
 import withAuth from '@hocs/withAuth'
+import { IUserDetail } from '@types'
 import { Session } from 'next-auth'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
-interface IPost {
-  details: string
-}
 function User({ session }: { session: Session }): React.ReactElement {
   const router = useRouter()
 
-  const [posts, setPosts] = useState<IPost>()
+  const [userDetails, setUserDetails] = useState<IUserDetail | null>()
 
   useEffect(() => {
     if (!session) {
@@ -18,8 +16,8 @@ function User({ session }: { session: Session }): React.ReactElement {
     }
 
     const getDetails = async () => {
-      const d = await getUserDetails(session?.accessToken)
-      setPosts(d)
+      const d = await getUserDetails(session?.accessToken as string)
+      setUserDetails(d)
     }
     getDetails()
   }, [])
@@ -27,7 +25,7 @@ function User({ session }: { session: Session }): React.ReactElement {
   return (
     <div>
       <h1>User: {router.query.username}</h1>
-      <h1>{posts?.details}</h1>
+      <h1>{userDetails?.details}</h1>
       <pre>{JSON.stringify(router, null, 2)}</pre>
     </div>
   )
