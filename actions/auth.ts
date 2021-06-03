@@ -1,6 +1,6 @@
 import { ROOT_API } from '@config'
 import axiosInstance from '@config/axios-config'
-import { IAuthUserData } from '@types'
+import { IUserDetail } from '@types'
 import axios from 'axios'
 
 interface ServerData {
@@ -71,7 +71,7 @@ export const refreshTokenFromDRF = async function (
   }
 }
 
-export const getUserDetails = async (token: string): Promise<IAuthUserData | null> => {
+export const getUserDetails = async (token: string): Promise<IUserDetail | null> => {
   const req = await axiosInstance(token)
   const response = await req.get('/user/ping/')
 
@@ -79,6 +79,6 @@ export const getUserDetails = async (token: string): Promise<IAuthUserData | nul
     const postData = await response.data
     return postData
   } else {
-    return {}
+    return null
   }
 }
