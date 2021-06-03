@@ -13,15 +13,15 @@ export const isJwtExpired = (token: string): boolean => {
     const adjustedExpiry = decoded['exp']
 
     if (adjustedExpiry < currentTime) {
-      console.log('Token expired')
+      console.log('Token about to expre; Sending refresh signal!')
       return true
     }
 
-    console.log('Token has not expired yet')
+    console.log('Token has not expired yet!')
     return false
   }
 
-  console.log('Token["exp"] does not exist')
+  console.log('Token["exp"] does not exist!')
   return true
 }
 
