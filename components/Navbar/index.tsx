@@ -44,15 +44,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white border  divide-y divide-gray-100 rounded-md shadow-lg outline-none">
-                        <div className="px-4 py-3 mt-2">
-                          <p className="text-sm leading-5">Signed in as</p>
-                          <p className="text-sm font-medium leading-5 text-gray-900 truncate">
-                            {session?.user?.email}
-                          </p>
-                        </div>
-
-                        <div className="py-1 mt-3">
-                          <hr />
+                        <div className="py-1 ">
                           <Menu.Item>
                             <Link href={`/u/@${session?.user?.name}`}>
                               <a
@@ -75,6 +67,13 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
                               Sign out
                             </button>
                           </Menu.Item>
+                        </div>
+                        <hr />
+                        <div className="px-4 py-3 mt-2 mb-3">
+                          <p className="text-sm leading-5">Signed in as</p>
+                          <p className="text-sm font-medium leading-5 text-gray-900 truncate">
+                            {session?.user?.email}
+                          </p>
                         </div>
                       </Menu.Items>
                     </Transition>
