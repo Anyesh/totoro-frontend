@@ -40,9 +40,5 @@ export default function Footer({ name }: { name: string }): React.ReactElement {
     </div>
   )
 
-  return (
-    <footer className="bg-white p-6  dark:bg-nord0 dark:text-white drop-shadow-sm">
-      {isAuthenticated ? authFooter : unAuthFooter}
-    </footer>
-  )
+  return isAuthenticated ? authFooter : unAuthFooter
 }
