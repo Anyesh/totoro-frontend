@@ -23,7 +23,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
               <Menu>
                 {({ open }) => (
                   <>
-                    <Menu.Button className="hover:bg-nord10 text-nord3 hover:text-white dark:text-nord4 px-3 py-2 text-sm font-medium rounded-md focus:outline-none inline-flex items-center">
+                    <Menu.Button className="hover:bg-nord10 text-nord3 hover:text-white dark:text-nord4 px-3 text-sm font-medium rounded-md focus:outline-none inline-flex items-center">
                       <img
                         src={`${session?.user?.image}`}
                         alt={`${session?.user?.name}`}
@@ -43,12 +43,12 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white border  divide-y divide-gray-100 rounded-md shadow-lg outline-none">
+                      <Menu.Items className="absolute right-0 w-56 origin-top-right  border rounded-md shadow-lg outline-none bg-nord6 dark:bg-nord0">
                         <div className="py-1 ">
                           <Menu.Item>
                             <Link href={`/u/@${session?.user?.name}`}>
                               <a
-                                className="text-gray-700 hover:text-nord11 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
+                                className="text-nord0 hover:text-nord11 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none"
                                 role="button"
                               >
                                 Profile
@@ -60,7 +60,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
                         <div className="py-1">
                           <Menu.Item>
                             <button
-                              className="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
+                              className="text-nord0 hover:text-nord11 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none"
                               onClick={() => handleLogout()}
                               type="button"
                             >
@@ -68,11 +68,11 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
                             </button>
                           </Menu.Item>
                         </div>
-                        <hr />
-                        <div className="px-4 py-3 mt-2 mb-3">
-                          <p className="text-sm leading-5">Signed in as</p>
-                          <p className="text-sm font-medium leading-5 text-gray-900 truncate">
-                            {session?.user?.email}
+                        <div className="px-4 mt-2 p-1 mb-3">
+                          <hr className="opacity-25" />
+                          <p className="text-sm  text-nord4 light:text-nord0">Signed in as</p>
+                          <p className="text-sm font-medium text-nord4 light:text-nord0 truncate">
+                            {session?.user?.email || 'no-one@email.com'}
                           </p>
                         </div>
                       </Menu.Items>
