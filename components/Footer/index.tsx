@@ -3,13 +3,13 @@ import React from 'react'
 
 export default function Footer({ name }: { name: string }): React.ReactElement {
   const { isAuthenticated } = useAuthState()
-  const authFooter: JSX.Element = <div>HELLO</div>
+  const authFooter: JSX.Element = <div className="light:text-nord3">&copy; Totoro 2021</div>
 
   const unAuthFooter: JSX.Element = (
-    <div className="mx-auto">
+    <div className="px-6">
       <div className="lg:flex">
-        <div className="w-full -mx-6 lg:w-2/5">
-          <div className="px-6">
+        <div className="w-full  lg:w-2/5">
+          <div>
             <div>
               <a
                 href="#"
