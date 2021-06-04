@@ -30,7 +30,13 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
                         className="rounded-full w-10 h-10 inline-flex align-middle p-1"
                       />
                       <span className="hidden md:flex">{session?.user?.name}</span>
-
+                      <svg
+                        className="fill-current h-4 w-4 ml-1.5 mt-1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                      </svg>
                       {/* <Gear className="fill-current p-0" /> */}
                     </Menu.Button>
 
@@ -48,7 +54,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
                           <Menu.Item>
                             <Link href={`/u/@${session?.user?.name}`}>
                               <a
-                                className="text-nord0 hover:text-nord11 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none"
+                                className="text-nord0 dark:text-nord6 hover:text-nord11 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none"
                                 role="button"
                               >
                                 Profile
@@ -60,7 +66,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
                         <div className="py-1">
                           <Menu.Item>
                             <button
-                              className="text-nord0 hover:text-nord11 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none"
+                              className="text-nord0 dark:text-nord6 hover:text-nord11 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none"
                               onClick={() => handleLogout()}
                               type="button"
                             >
@@ -70,8 +76,8 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
                         </div>
                         <div className="px-4 mt-2 p-1 mb-3">
                           <hr className="opacity-25" />
-                          <p className="text-sm  text-nord4 light:text-nord0">Signed in as</p>
-                          <p className="text-sm font-medium text-nord4 light:text-nord0 truncate">
+                          <p className="text-sm   dark:text-nord4 text-nord0">Signed in as</p>
+                          <p className="text-sm font-medium  dark:text-nord4 text-nord0 truncate">
                             {session?.user?.email || 'no-one@email.com'}
                           </p>
                         </div>
