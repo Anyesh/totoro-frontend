@@ -79,3 +79,57 @@ export interface ISession {
 export interface TToken {
   exp: number
 }
+
+export interface IContent {
+  id: string
+  alt_description: string
+  categories?: []
+  avg_color: string
+  create_at: string
+  update_at: string
+  description?: string | null
+  height: number
+  width: number
+  links: {
+    self: string
+    html: string
+  }
+  photographer: string
+  photographer_id: string
+  photographer_url: string
+
+  src: {
+    original: string
+    large: string
+    small: string
+    tiny: string
+  }
+}
+
+export interface IUnsplashContent {
+  id: string
+  alt_description: string
+  categories?: []
+  color: string
+  create_at: string
+  update_at: string
+  description?: string | null
+  height: number
+  width: number
+  links: {
+    self: string
+    html: string
+  }
+  users: {
+    id: string
+    update_at: string
+    username: string
+  }
+  urls: {
+    full: string
+    raw: string
+    regular: string
+    small: string
+    thumb: string
+  }
+}
