@@ -2,6 +2,7 @@ import { ROOT_API } from '@config'
 import axiosInstance from '@config/axios-config'
 import { IUserDetail } from '@types'
 import axios from 'axios'
+import { signOut } from 'next-auth/client'
 
 interface ServerData {
   user: {
@@ -19,10 +20,11 @@ interface IDRFData {
 }
 
 export const handleLogout = (): void => {
-  axios
-    .post(ROOT_API + '/auth/logout/')
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err))
+  signOut()
+  // axios
+  //   .post(ROOT_API + '/auth/logout/')
+  //   .then((res) => signOut())
+  //   .catch((err) => console.log(err))
 }
 
 export const getInitialTokenFromDRF = async ({
