@@ -1,5 +1,16 @@
 /* ./styles/globals.css */
-@import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css';
+
+:root {
+  /* Your default theme */
+  --background: #eceff4;
+  --foreground: #434c5e;
+}
+
+[data-theme='dark'] {
+  --background: #434c5e;
+  --foreground: #eceff4;
+}
+
 @tailwind base;
 
 h1 {
