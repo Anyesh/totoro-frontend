@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }): Rea
       <main className="p-6 mb-20">
         <div>{children}</div>
       </main>
-      <footer className="bg-white p-6  dark:bg-nord0 dark:text-white drop-shadow-sm fixed bottom-0 w-full ">
+      <footer className="bg-white p-1  dark:bg-nord0 dark:text-white drop-shadow-sm fixed bottom-0 w-full ">
         <Footer name={NAME} />
       </footer>
     </div>
