@@ -106,6 +106,14 @@ export interface IContent {
   }
 }
 
+export interface PexelContent {
+  photos: Array<IContent>
+  next_page: string
+  page: number
+  per_page: number
+  total_results: number
+}
+
 export interface IUnsplashContent {
   id: string
   alt_description: string
