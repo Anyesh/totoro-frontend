@@ -1,11 +1,12 @@
-import axios from 'axios'
+import { cacheFetch, IAxiosResponse } from './axios-fetch'
 
-export const fetchUnsplashContent = () => {
+export const fetchContent = async (): Promise<IAxiosResponse> => {
+  const url = 'https://api.pexels.com/v1/search?query=nature&per_page=20'
+
   const headers = {
-    Authorization: process.env.PEXEL_KEY,
+    Authorization:
+      process.env.PEXEL_KEY || '563492ad6f91700001000001fe2538f16d4147ff9f71b738107108be',
   }
-  return axios
-    .get('https://api.pexels.com/v1/search?query=nature&per_page=20', { headers: headers })
-    .then((res) => res.data?.photos)
-    .catch(() => null)
+  const res = await cacheFetch(url, headers)
+  return res
 }
