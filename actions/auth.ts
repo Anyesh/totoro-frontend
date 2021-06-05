@@ -19,14 +19,6 @@ interface IDRFData {
   idToken: string | undefined
 }
 
-export const handleLogout = (): void => {
-  signOut()
-  // axios
-  //   .post(ROOT_API + '/auth/logout/')
-  //   .then((res) => signOut())
-  //   .catch((err) => console.log(err))
-}
-
 export const getInitialTokenFromDRF = async ({
   provider,
   accessToken,
@@ -83,4 +75,12 @@ export const getUserDetails = async (token: string): Promise<IUserDetail | null>
   } else {
     return null
   }
+}
+
+export const handleLogout = (): void => {
+  signOut()
+  // axios
+  //   .post(ROOT_API + '/auth/logout/')
+  //   .then((res) => signOut())
+  //   .catch((err) => console.log(err))
 }
