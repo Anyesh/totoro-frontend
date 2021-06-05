@@ -87,12 +87,12 @@ function Login({
   }
 
   return (
-    <div className="sm:p-5 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 place-items-center">
-      <div className="text-3xl text-center sm:text-center mx-auto md:text-left w-full items-center xl:w-3/5">
+    <div className="sm:p-5 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 place-items-center place-self-center">
+      <div className="text-3xl text-center sm:text-center mx-auto md:text-left w-full items-center xl:w-3/5 ">
         <h1 className="text-5xl lg:text-left light:text-nord1 dark:text-nord4 font-bold">Totoro</h1>
         <p className="dark:text-nord4 light:text-nord0">{pageDescriptions}</p>
       </div>
-      <div className="items-center xl:w-3/5 w-full  shadow-xl light:bg-white dark:bg-nord3 bg-nord5 rounded-lg p-5 mt-10">
+      <div className="items-center  xl:w-3/5 w-full  shadow-xl light:bg-white dark:bg-nord3 bg-nord5 rounded-lg p-5 mt-10">
         {/* <h1 className="font-semibold text-left p-2">Log in to Totoro</h1> */}
         {/* <hr className="opacity-20 mt-2 mb-3" /> */}
 

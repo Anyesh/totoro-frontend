@@ -20,7 +20,7 @@ export default function Footer({ name }: { name: string }): React.ReactElement {
             </div>
 
             <p className="max-w-md mt-2 ">
-              I will think about the intro later, for now you can just enjoy the login functionaliyu
+              I will think about the intro later, for now you can just enjoy the login functionality
               and some images.
             </p>
           </div>
