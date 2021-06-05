@@ -4,7 +4,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { useSession } from 'next-auth/client'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import React from 'react'
+import React, { Fragment, useEffect } from 'react'
 export default function Nav({ name }: { name: string }): React.ReactElement {
   const { theme, setTheme } = useTheme()
   // const [isOpen, setIsOpen] = useState(false)
@@ -14,6 +14,25 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
 
   const isAuthenticated = !loading && !!session
 
+  useEffect(() => {
+    window &&
+      (() => {
+        const nav = document.getElementById('site-menu')
+        const header = document.getElementById('top')
+
+        window.addEventListener('scroll', function () {
+          if (window.scrollY >= 400) {
+            // adjust this value based on site structure and header image height
+            nav?.classList.add('nav-sticky')
+            header?.classList.add('pt-scroll')
+          } else {
+            nav?.classList.remove('nav-sticky')
+            header?.classList.remove('pt-scroll')
+          }
+        })
+      })()
+  }, [])
+
   const navItems = () => {
     if (isAuthenticated)
       return (
@@ -21,70 +40,71 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
           <div className="flex items-center">
             <div className="relative inline-block text-left ">
               <Menu>
-                {({ open }) => (
-                  <>
-                    <Menu.Button className="hover:bg-nord10 text-nord3 hover:text-white dark:text-nord4 px-3 text-sm font-medium rounded-md focus:outline-none inline-flex items-center ">
-                      <img
-                        src={`${session?.user?.image}`}
-                        alt={`${session?.user?.name}`}
-                        className="rounded-full w-10 h-10 inline-flex align-middle p-1"
-                      />
-                      <span className="hidden md:flex">{session?.user?.name}</span>
-                      <svg
-                        className="fill-current h-4 w-4 ml-1.5 mt-1"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                      </svg>
-                      {/* <Gear className="fill-current p-0" /> */}
-                    </Menu.Button>
-
-                    <Transition
-                      show={open}
-                      enter="transition ease-out duration-100"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
+                <>
+                  <Menu.Button className="hover:bg-nord10 text-nord3 hover:text-white dark:text-nord4 px-3 text-sm font-medium rounded-md focus:outline-none inline-flex items-center ">
+                    <img
+                      src={`${session?.user?.image}`}
+                      alt={`${session?.user?.name}`}
+                      className="rounded-full w-10 h-10 inline-flex align-middle p-1"
+                    />
+                    <span className="hidden md:flex">{session?.user?.name}</span>
+                    <svg
+                      className="fill-current h-4 w-4 ml-1.5 mt-1"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
                     >
-                      <Menu.Items className="absolute right-0 w-56 origin-top-right  border rounded-md shadow-lg outline-none bg-nord6 dark:bg-nord0 ">
-                        <div className="py-1 ">
-                          <Menu.Item>
-                            <Link href={`/u/@${session?.user?.name}`}>
-                              <a
-                                className="text-nord0 dark:text-nord6 hover:text-nord11 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none"
-                                role="button"
-                              >
-                                Profile
-                              </a>
-                            </Link>
-                          </Menu.Item>
-                        </div>
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                    {/* <Gear className="fill-current p-0" /> */}
+                  </Menu.Button>
 
-                        <div className="py-1">
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items
+                      static
+                      className="absolute right-0 w-56 origin-top-right  border rounded-md shadow-lg outline-none bg-nord6 dark:bg-nord0 "
+                    >
+                      <div className="py-1 ">
+                        <Link href={`/u/@${session?.user?.name}`}>
                           <Menu.Item>
                             <button
-                              className="text-nord0 dark:text-nord6 hover:text-nord11 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left focus:outline-none"
-                              onClick={() => handleLogout()}
                               type="button"
+                              className="text-nord0 dark:text-nord6 hover:text-nord6 hover:bg-nord3 w-full px-4 py-2 text-sm text-left focus:outline-none"
                             >
-                              Sign out
+                              Profile
                             </button>
                           </Menu.Item>
-                        </div>
-                        <div className="px-4 mt-2 p-1 mb-3">
-                          <hr className="opacity-25" />
-                          <p className="text-sm   dark:text-nord4 text-nord0">Signed in as</p>
-                          <p className="text-sm font-medium  dark:text-nord4 text-nord0 truncate">
-                            {session?.user?.email || 'no-one@email.com'}
-                          </p>
-                        </div>
-                      </Menu.Items>
-                    </Transition>
-                  </>
-                )}
+                        </Link>
+                      </div>
+
+                      <div className="py-1">
+                        <Menu.Item>
+                          <button
+                            className="text-nord0 dark:text-nord6 hover:text-nord6 hover:bg-nord3 w-full px-4 py-2 text-sm text-left focus:outline-none"
+                            onClick={() => handleLogout()}
+                            type="button"
+                          >
+                            Sign out
+                          </button>
+                        </Menu.Item>
+                      </div>
+                      <div className="px-4 mt-2 p-1 mb-3">
+                        <hr className="opacity-25" />
+                        <p className="text-sm   dark:text-nord4 text-nord0">Signed in as</p>
+                        <p className="text-sm font-medium  dark:text-nord4 text-nord0 truncate">
+                          {session?.user?.email || 'no-one@email.com'}
+                        </p>
+                      </div>
+                    </Menu.Items>
+                  </Transition>
+                </>
               </Menu>
             </div>
           </div>
@@ -121,9 +141,9 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
   }
 
   return (
-    <nav className="bg-nord6 px-5 dark:bg-nord1 ">
-      <div className="max-w-full mx-auto">
-        <div className="flex items-center h-16 justify-between">
+    <nav id="site-menu" className="px-3 py-1 dark:bg-nord1">
+      <div className="max-w-full">
+        <div className="flex items-center justify-between">
           <Link href="/">
             <a className="inline-flex items-center">
               <Cat className="h-14 w-14 p-0 fill-current ml-1.5" />
