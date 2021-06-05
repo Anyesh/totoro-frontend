@@ -10,6 +10,8 @@ import { useToasts } from 'react-toast-notifications'
 function index(props: { session: Session }): React.ReactElement {
   const { session } = props
 
+  const [cat, catSet] = useState<string>('movies')
+
   const [content, setContent] = useState<PexelContent | null>()
   const [loading, setLoading] = useState(false)
 
@@ -79,7 +81,7 @@ function index(props: { session: Session }): React.ReactElement {
 
   return (
     <>
-      <div className="justify-center select-none flex flex-wrap gap-4">{renderPills()}</div>
+      {/* <div className="justify-center select-none flex flex-wrap gap-4 ">{renderPills()}</div> */}
       <div className="select-none flex flex-wrap gap-2 mt-5 justify-center">{renderContent()}</div>
     </>
   )

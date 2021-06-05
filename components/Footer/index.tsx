@@ -3,7 +3,9 @@ import React from 'react'
 
 export default function Footer({ name }: { name: string }): React.ReactElement {
   const { isAuthenticated } = useAuthState()
-  const authFooter: JSX.Element = <small className="light:text-nord3">&copy; Totoro 2021</small>
+  // const authFooter: JSX.Element = (
+  //   <small className="light:text-nord3 fixed bottom-0">&copy; Totoro 2021</small>
+  // )
 
   const unAuthFooter: JSX.Element = (
     <div className="p-6">
@@ -41,5 +43,5 @@ export default function Footer({ name }: { name: string }): React.ReactElement {
     </div>
   )
 
-  return isAuthenticated ? authFooter : unAuthFooter
+  return isAuthenticated ? <> </> : unAuthFooter
 }

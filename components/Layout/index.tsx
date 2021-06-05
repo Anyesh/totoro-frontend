@@ -8,14 +8,14 @@ const Footer = dynamic(() => import('../Footer'), { ssr: false })
 export default function Layout({ children }: { children: React.ReactNode }): React.ReactElement {
   const NAME = 'Totoro'
   return (
-    <div className="overflow-x-hidden flex flex-col min-h-screen bg-nord6 dark:bg-nord1 ">
+    <div className="overflow-x-hidden flex flex-col min-h-screen bg-nord6 dark:bg-nord1 justify-between">
       <header>
         <Nav name={NAME} />
       </header>
-      <main className="p-6 mb-20">
+      <main className="p-6 mb-auto ">
         <div>{children}</div>
       </main>
-      <footer className="bg-white p-1  dark:bg-nord0 dark:text-white drop-shadow-sm fixed bottom-0 w-full ">
+      <footer className="bg-white dark:bg-nord0 dark:text-white drop-shadow-sm w-full ">
         <Footer name={NAME} />
       </footer>
     </div>
