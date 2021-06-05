@@ -21,7 +21,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
         const header = document.getElementById('top')
 
         window.addEventListener('scroll', function () {
-          if (window.scrollY >= 400) {
+          if (window.scrollY >= 100) {
             // adjust this value based on site structure and header image height
             nav?.classList.add('nav-sticky')
             header?.classList.add('pt-scroll')
@@ -141,7 +141,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
   }
 
   return (
-    <nav id="site-menu" className="px-3 py-1 dark:bg-nord1">
+    <nav id="site-menu" className="px-3 py-1 dark:bg-nord1 bg-nord6">
       <div className="max-w-full">
         <div className="flex items-center justify-between">
           <Link href="/">
