@@ -19,11 +19,11 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
       return (
         <>
           <div className="flex items-center">
-            <div className="relative inline-block text-left">
+            <div className="relative inline-block text-left ">
               <Menu>
                 {({ open }) => (
                   <>
-                    <Menu.Button className="hover:bg-nord10 text-nord3 hover:text-white dark:text-nord4 px-3 text-sm font-medium rounded-md focus:outline-none inline-flex items-center">
+                    <Menu.Button className="hover:bg-nord10 text-nord3 hover:text-white dark:text-nord4 px-3 text-sm font-medium rounded-md focus:outline-none inline-flex items-center ">
                       <img
                         src={`${session?.user?.image}`}
                         alt={`${session?.user?.name}`}
@@ -49,7 +49,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute right-0 w-56 origin-top-right  border rounded-md shadow-lg outline-none bg-nord6 dark:bg-nord0">
+                      <Menu.Items className="absolute right-0 w-56 origin-top-right  border rounded-md shadow-lg outline-none bg-nord6 dark:bg-nord0 ">
                         <div className="py-1 ">
                           <Menu.Item>
                             <Link href={`/u/@${session?.user?.name}`}>
@@ -121,7 +121,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
   }
 
   return (
-    <nav className="bg-nord6 px-5 dark:bg-nord1">
+    <nav className="bg-nord6 px-5 dark:bg-nord1 ">
       <div className="max-w-full mx-auto">
         <div className="flex items-center h-16 justify-between">
           <Link href="/">
@@ -133,7 +133,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
             </a>
           </Link>
 
-          <div className="flex items-center">
+          <div className="flex items-center z-10">
             <div className="ml-10 inline-flex space-x-4 align-middle">{navItems()}</div>
           </div>
 

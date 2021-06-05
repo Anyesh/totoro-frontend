@@ -23,10 +23,10 @@ function User({ session }: { session: Session }): React.ReactElement {
   }, [])
 
   return (
-    <div>
-      <h1>User: {router.query.username}</h1>
-      <h1>{userDetails?.details}</h1>
-      <pre>{JSON.stringify(router, null, 2)}</pre>
+    <div className="text-center ">
+      <h1>You are logged in as: {router.query.username}</h1>
+      <p>The following detail is from the backend:</p>
+      <code>{userDetails?.details}</code>
     </div>
   )
 }

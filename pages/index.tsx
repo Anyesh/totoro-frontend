@@ -1,28 +1,40 @@
-import { fetchUnsplashContent } from '@actions/posts'
+import { fetchContent } from '@actions/posts'
 import Empty from '@components/Common/Empty'
 import withAuth from '@hocs/withAuth'
-import { IContent } from '@types'
+import { PexelContent } from '@types'
 import { Session } from 'next-auth'
 // import Gallery from 'react-photo-gallery'
 import Image from 'next/image'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useToasts } from 'react-toast-notifications'
 function index(props: { session: Session }): React.ReactElement {
   const { session } = props
 
-  const [content, setContent] = useState<IContent[] | null>()
+  const [content, setContent] = useState<PexelContent | null>()
   const [loading, setLoading] = useState(false)
+
+  const { addToast } = useToasts()
 
   useEffect(() => {
     getContent()
   }, [])
 
-  const getContent = useCallback(async () => {
+  const getContent = async () => {
     setLoading(true)
-    const res = await fetchUnsplashContent()
-    setContent(res)
-    console.log(res)
+    const res = await fetchContent()
+    if (res.error) {
+      addToast(res.error.message, {
+        appearance: 'error',
+        autoDismiss: true,
+      })
+      setContent(null)
+    } else {
+      const content = res.data as PexelContent
+
+      setContent(content)
+    }
     setLoading(false)
-  }, [loading])
+  }
 
   const [pills] = useState<string[]>([
     'Movies',
@@ -50,7 +62,7 @@ function index(props: { session: Session }): React.ReactElement {
     return loading ? (
       <span className="animate-bounce">Loading...</span>
     ) : content ? (
-      content.map((c) => (
+      content?.photos?.map((c) => (
         <Image
           className="hover:animate-pulse"
           key={c.id}

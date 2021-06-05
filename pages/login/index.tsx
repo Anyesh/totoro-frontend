@@ -121,7 +121,7 @@ function Login({
         </Link> */}
 
         <p className="text-center text-sm mt-4">
-          By loggin in you agree to our{' '}
+          By logging in you agree to our{' '}
           <span className="font-semibold text-center w-full">
             <Link href="/terms">terms & conditions</Link>
           </span>

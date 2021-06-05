@@ -7,8 +7,8 @@ export default function Footer({ name }: { name: string }): React.ReactElement {
 
   const unAuthFooter: JSX.Element = (
     <div className="px-6">
-      <div className="lg:flex">
-        <div className="w-full  lg:w-2/5">
+      <div className="lg:flex hidden">
+        <div className="w-full  lg:w-2/5 ">
           <div>
             <div>
               <a
@@ -20,7 +20,8 @@ export default function Footer({ name }: { name: string }): React.ReactElement {
             </div>
 
             <p className="max-w-md mt-2 ">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repudiandae recusandae
+              I will think about the intro later, for now you can just enjoy the login functionaliyu
+              and some images.
             </p>
           </div>
         </div>
@@ -30,7 +31,7 @@ export default function Footer({ name }: { name: string }): React.ReactElement {
         </div>
       </div>
 
-      <hr className="h-px my-6 bg-gray-300 border-none dark:bg-gray-700 opacity-25" />
+      <hr className="bg-gray-300 border-none dark:bg-gray-700 opacity-25" />
 
       <div>
         <p className="text-center text-gray-800 dark:text-white">
