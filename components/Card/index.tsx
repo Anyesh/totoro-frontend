@@ -9,7 +9,8 @@ const Card = ({ data }: { data: IContent }): React.ReactElement => {
       <div className="col-span-3 row-span-4 p-1 m-1 transition duration-500 transform hover:-translate-y-2 motion-reduce:transition-none motion-reduce:transform-none cursor-pointer">
         <Link href={`/?postID=${data?.id}`} as={`/posts/${data?.id}`}>
           <Image
-            className=" rounded-lg"
+            placeholder="blur"
+            className="rounded-lg"
             objectFit="cover"
             alt={data?.alt_description}
             src={data?.src?.original}
