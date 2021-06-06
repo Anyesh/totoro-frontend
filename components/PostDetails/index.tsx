@@ -33,7 +33,7 @@ export default function PostDetails({ id }: { id: string }): React.ReactElement 
           width={data?.width * 0.15}
         />
       </div>
-      <div className="place-self-center self-center space-y-7">
+      <div className="place-self-center self-center space-y-7 p-5">
         <h1>Post Details</h1>
         <hr />
         <p>
