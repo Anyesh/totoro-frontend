@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }): Rea
       <header id="top">
         <Nav name={NAME} />
       </header>
-      <main className="mb-auto content">
+      <main className="content">
         <div>{children}</div>
       </main>
       <footer className="bg-white dark:bg-nord0 dark:text-white drop-shadow-sm w-full ">
