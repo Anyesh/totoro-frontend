@@ -2,6 +2,7 @@ import { getUserDetails } from '@actions/auth'
 import withAuth from '@hocs/withAuth'
 import { IUserDetail } from '@types'
 import { Session } from 'next-auth'
+import { signOut } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
@@ -17,7 +18,12 @@ function User({ session }: { session: Session }): React.ReactElement {
 
     const getDetails = async () => {
       const d = await getUserDetails(session?.accessToken as string)
-      setUserDetails(d)
+      if(d){
+
+        setUserDetails(d)
+      }else{
+        signOut()
+      }
     }
     getDetails()
   }, [])
