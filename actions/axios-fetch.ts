@@ -40,3 +40,21 @@ export const fetch = async (
 
   return AxiosResponse
 }
+
+export const pFetch = async (
+  url: string,
+  headers: Record<string, unknown> | null = null,
+  body: Record<string, unknown> | null = null
+): Promise<IAxiosResponse> => {
+  const AxiosResponse: IAxiosResponse = { data: null, error: null }
+
+  try {
+    const response = await axios.post(url, body, { headers: headers ? headers : {} })
+    AxiosResponse.data = await response.data
+  } catch (error) {
+    const err = handleError(error)
+    AxiosResponse.error = err
+  }
+
+  return AxiosResponse
+}
