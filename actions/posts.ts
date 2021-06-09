@@ -1,3 +1,5 @@
+import axiosInstance from '@config/axios-config'
+import { AxiosRequestConfig } from 'axios'
 import { cacheFetch, IAxiosResponse } from './axios-fetch'
 
 export const fetchContent = async (): Promise<IAxiosResponse> => {
@@ -9,4 +11,25 @@ export const fetchContent = async (): Promise<IAxiosResponse> => {
   }
   const res = await cacheFetch(url, headers)
   return res
+}
+
+export const postNewContent = async (
+  post: unknown,
+  token: string,
+  config: AxiosRequestConfig
+): Promise<unknown | null> => {
+  const req = await axiosInstance(token)
+
+  try {
+    const response = await req.post('/post/new/', post, config)
+
+    if (response?.data) {
+      const postResponse = await response.data
+      return postResponse
+    } else {
+      return null
+    }
+  } catch (error) {
+    return null
+  }
 }
