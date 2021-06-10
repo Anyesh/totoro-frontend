@@ -45,21 +45,7 @@ function Login({
     }
   }, [])
 
-  // const [state, stateSet] = useState<LoginUserData>({
-  //   username: '',
-  //   password: '',
-  // })
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-  //   const { name, value }: { name: string; value: string } = e.target
-
-  //   stateSet((prevState) => ({
-  //     ...prevState,
-  //     [name]: value,
-  //   }))
-  // }
-
-  // const auth = useSelector((state: IStore) => state.authentication)
 
   const getProviderIcon = (provider: string): React.ReactElement => {
     switch (provider) {
