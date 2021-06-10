@@ -14,7 +14,7 @@ const Card = ({ data }: { data: IContent }): React.ReactElement => {
             objectFit="cover"
             alt={data?.title}
             src={data?.src?.thumbnail?.url}
-            height={data?.src?.thumbnail?.height}
+            height={data?.src?.thumbnail?.height + 90}
             width={data?.src?.thumbnail?.width}
           />
         </Link>
