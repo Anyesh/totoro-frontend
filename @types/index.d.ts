@@ -6,9 +6,6 @@ import { AppInitialProps } from 'next/app'
 import { Store } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 
-export interface ISession {
-  accessToken: string
-}
 export interface IUserDetail {
   details: string
 }
