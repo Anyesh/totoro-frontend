@@ -1,20 +1,23 @@
+import { fetchPostDetail } from '@actions/posts'
 import Loading from '@components/Common/Loading'
-import { IContent } from '@types'
+import { IContent, IContentRecord } from '@types'
+import { Session } from 'next-auth'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
-export default function PostDetails({ id }: { id: string }): React.ReactElement {
-  const fetchPostDetail = (id: string): Promise<IContent> => {
-    const headers = { Authorization: '563492ad6f91700001000001fe2538f16d4147ff9f71b738107108be' }
-    return fetch(`https://api.pexels.com/v1/photos/${id}`, { headers }).then((res) => res.json())
-  }
-
+function PostDetails({ id, session }: { id: string; session: Session }): React.ReactElement {
   const [data, setData] = useState<IContent>()
 
   useEffect(() => {
     const fetcher = async () => {
-      const data = await fetchPostDetail(id)
-      setData(data)
+      const response = await fetchPostDetail(session?.accessToken as string, id)
+      if (response.error) {
+        console.table(response.error)
+      } else {
+        const data = response.data as IContentRecord
+
+        setData(data.result.data)
+      }
     }
     fetcher()
   }, [id])
@@ -27,14 +30,14 @@ export default function PostDetails({ id }: { id: string }): React.ReactElement 
         <Image
           className=" rounded-lg"
           objectFit="cover"
-          alt={data?.alt_description}
-          src={data?.src?.original}
-          height={data?.height * 0.15}
-          width={data?.width * 0.15}
+          alt={data?.title}
+          src={data?.src?.original?.url}
+          height={data.src?.original?.height}
+          width={data.src?.original?.width}
         />
       </div>
       <div className="place-self-center self-center space-y-7 p-5">
-        <h1>Post Details</h1>
+        <h1 className="font-semibold">{data?.title}</h1>
         <hr />
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, enim? Itaque obcaecati
@@ -45,3 +48,5 @@ export default function PostDetails({ id }: { id: string }): React.ReactElement 
     </div>
   )
 }
+
+export default PostDetails

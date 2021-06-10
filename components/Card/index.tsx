@@ -12,26 +12,26 @@ const Card = ({ data }: { data: IContent }): React.ReactElement => {
             placeholder="blur"
             className="rounded-lg"
             objectFit="cover"
-            alt={data?.alt_description}
-            src={data?.src?.original}
-            height={data?.height * 0.05}
-            width={data?.width * 0.09}
+            alt={data?.title}
+            src={data?.src?.thumbnail?.url}
+            height={data?.src?.thumbnail?.height}
+            width={data?.src?.thumbnail?.width}
           />
         </Link>
       </div>
       <div className="p-2">
         <a
           className="flex items-center hover:text-nord10"
-          href={data.photographer_url}
+          href={`/@${data.author.username}`}
           target="__blank"
         >
           <img
             loading="lazy"
-            alt={data.photographer}
+            alt={data.author.username}
             className="block rounded-full w-7 h-7"
-            src={data.src.tiny}
+            src={data.src.thumbnail.url}
           />
-          <span className="ml-2 text-sm font-bold"> {data.photographer} </span>
+          <span className="ml-2 text-sm font-bold"> {data.author.username} </span>
         </a>
       </div>
 

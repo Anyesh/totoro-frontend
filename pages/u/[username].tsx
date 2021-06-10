@@ -18,10 +18,9 @@ function User({ session }: { session: Session }): React.ReactElement {
 
     const getDetails = async () => {
       const d = await getUserDetails(session?.accessToken as string)
-      if(d){
-
+      if (d) {
         setUserDetails(d)
-      }else{
+      } else {
         signOut()
       }
     }
@@ -29,10 +28,12 @@ function User({ session }: { session: Session }): React.ReactElement {
   }, [])
 
   return (
-    <div className="text-center ">
-      <h1>You are logged in as: {router.query.username}</h1>
-      <p>The following detail is from the backend:</p>
-      <code>{userDetails?.details}</code>
+    <div className="text-center flex justify-center items-center">
+      <div>
+        <h1>You are logged in as: {router.query.username}</h1>
+        <p>The following detail is from the backend:</p>
+        <code>{userDetails?.details}</code>
+      </div>
     </div>
   )
 }

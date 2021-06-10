@@ -6,6 +6,9 @@ import { AppInitialProps } from 'next/app'
 import { Store } from 'redux'
 import { ThunkDispatch } from 'redux-thunk'
 
+export interface ISession {
+  accessToken: string
+}
 export interface IUserDetail {
   details: string
 }
@@ -80,38 +83,46 @@ export interface TToken {
   exp: number
 }
 
-export interface IContent {
-  id: string
-  alt_description: string
-  categories?: []
-  avg_color: string
-  create_at: string
-  update_at: string
-  description?: string | null
+interface ImageAttr {
+  url: string
   height: number
   width: number
-  links: {
-    self: string
-    html: string
+}
+export interface IContent {
+  id: string
+  title: string
+  categories?: []
+  created_at: string
+  updated_at: string
+  description?: string | null
+
+  likes: Record<string, unknown>
+
+  author: {
+    username: string
+    user_id: string
+    email: string
   }
-  photographer: string
-  photographer_id: string
-  photographer_url: string
 
   src: {
-    original: string
-    large: string
-    small: string
-    tiny: string
+    original: ImageAttr
+    thumbnail: ImageAttr
   }
 }
 
-export interface PexelContent {
-  photos: Array<IContent>
-  next_page: string
-  page: number
-  per_page: number
-  total_results: number
+export interface IContentArr extends DRFResponse {
+  result: { data: Array<IContent> }
+}
+
+export interface IContentRecord extends DRFResponse {
+  result: { data: IContent }
+}
+
+export interface DRFResponse {
+  result: Record<string, unknown>
+  message: string
+  status: boolean
+  status_code: number
 }
 
 export interface IUnsplashContent {

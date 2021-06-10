@@ -1,35 +1,41 @@
-import axiosInstance from '@config/axios-config'
-import { AxiosRequestConfig } from 'axios'
-import { cacheFetch, IAxiosResponse } from './axios-fetch'
+import { AxiosKwargs, cacheFetch, fetch, IAxiosResponse } from './axios-fetch'
 
-export const fetchContent = async (): Promise<IAxiosResponse> => {
-  const url = 'https://api.pexels.com/v1/search?query=nature&per_page=20'
+export const fetchContent = async (token: string): Promise<IAxiosResponse> => {
+  const url = '/posts/'
 
-  const headers = {
-    Authorization:
-      process.env.PEXEL_KEY || '563492ad6f91700001000001fe2538f16d4147ff9f71b738107108be',
+  const kwargs: AxiosKwargs = {
+    method: 'GET',
+    token: token,
+    headers: {},
+    data: null,
+    callback: () => {
+      undefined
+    },
   }
-  const res = await cacheFetch(url, headers)
+  const res = await cacheFetch(url, kwargs)
   return res
 }
 
-export const postNewContent = async (
-  post: unknown,
-  token: string,
-  config: AxiosRequestConfig
-): Promise<unknown | null> => {
-  const req = await axiosInstance(token)
+export const fetchPostDetail = async (token: string, pid: string): Promise<IAxiosResponse> => {
+  const url = '/post/' + pid + '/'
 
-  try {
-    const response = await req.post('/post/new/', post, config)
-
-    if (response?.data) {
-      const postResponse = await response.data
-      return postResponse
-    } else {
-      return null
-    }
-  } catch (error) {
-    return null
+  const kwargs: AxiosKwargs = {
+    method: 'GET',
+    token: token,
+    headers: {},
+    data: null,
+    callback: () => {
+      undefined
+    },
   }
+  const res = await cacheFetch(url, kwargs)
+  return res
+}
+
+export const postNewContent = async (kwargs: AxiosKwargs): Promise<IAxiosResponse> => {
+  const url = '/post/new/'
+
+  const res = await fetch(url, kwargs)
+
+  return res
 }

@@ -66,10 +66,10 @@ export const refreshTokenFromDRF = async function (
 }
 
 export const getUserDetails = async (token: string): Promise<IUserDetail | null> => {
-  const req = await axiosInstance(token)
-
   try {
-    const response = await req.get('/user/ping/')
+    const response = await axiosInstance(token, 'GET', '/user/ping/', {}, null, () => {
+      undefined
+    })
 
     if (response?.data) {
       const userData = await response.data
