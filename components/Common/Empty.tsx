@@ -1,5 +1,5 @@
 import React from 'react'
 
 export default function Empty(): React.ReactElement {
-  return <div>It is Empty Here!</div>
+  return <div>Wow! It's soo Empty Here!</div>
 }
