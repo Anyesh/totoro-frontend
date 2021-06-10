@@ -15,19 +15,7 @@ module.exports = {
       '5xl': '3rem',
       '6xl': '4rem',
     },
-    extend: {
-      outline: {
-        blue: '1px solid #4C566A',
-      },
-      colors: {
-        gray: {
-          100: '#4C566A',
-          200: '#434C5E',
-          300: '#3B4252',
-          400: '#2E3440',
-        },
-      },
-    },
+    extend: {},
   },
   variants: {},
   plugins: [require('tailwind-nord')],
