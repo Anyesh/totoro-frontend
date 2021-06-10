@@ -9,7 +9,6 @@ import { Session } from 'next-auth'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import 'react-dropzone-uploader/dist/styles.css'
 import Modal from 'react-modal'
 import { useToasts } from 'react-toast-notifications'
 
