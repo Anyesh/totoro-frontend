@@ -21,7 +21,7 @@ const axiosInstance = async (
       localToken = session.accessToken as string
     }
   }
-  console.log('Data', data)
+
   const axiosInstance = axios({
     url: url,
     method: method || 'GET',

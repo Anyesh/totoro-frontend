@@ -1,10 +1,10 @@
 import { fetchContent, postNewContent } from '@actions/posts'
-import { Add } from '@assets/IconComponents'
+import { Add, Loadin } from '@assets/IconComponents'
 import Card from '@components/Card'
-import Empty from '@components/Common/Empty'
 import PostDetails from '@components/PostDetails'
 import withAuth from '@hocs/withAuth'
 import { IContent, IContentArr, IContentRecord } from '@types'
+import isEmpty from '@validations/is-empty'
 import { Session } from 'next-auth'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -132,11 +132,21 @@ function index(props: { session: Session }): React.ReactElement {
 
   const renderContent = () => {
     return loading ? (
-      <div></div>
-    ) : content ? (
+      <div>
+        <div className="flex flex-row justify-center justify-items-center gap-8 animate-bounce items-center ">
+          <Loadin className="fill-current" />
+          <h2>Loading Contents...</h2>
+        </div>
+      </div>
+    ) : !isEmpty(content) ? (
       content?.map((data) => <Card data={data} key={data?.id} />)
     ) : (
-      <Empty />
+      <div>
+        <div className="flex flex-col justify-center justify-items-center gap-4 items-center w-full ">
+          <h1>It&apos;s soo empty here.</h1>
+          <p className="text-nord14">Create some posts to fill this emptiness!</p>
+        </div>
+      </div>
     )
   }
 
@@ -145,11 +155,11 @@ function index(props: { session: Session }): React.ReactElement {
       <Head>
         <title>Totoro | Home</title>
       </Head>
-      <section className="masonry-with-columns p-6">
+      <section className={loading || isEmpty(content) ? 'p-20' : 'masonry-with-columns p-6'}>
         {renderContent()}
 
         <button
-          className="fixed bottom-0 right-0  bg-white dark:bg-nord3  rounded-full w-10 h-10 p-1  focus:outline-none animate-bounce"
+          className="fixed bottom-0 right-0  bg-white dark:bg-nord3  rounded-full w-10 h-10 p-1  focus:outline-none"
           type="button"
           style={{ margin: '20px' }}
           onClick={() => setPostModal(!postModal)}
@@ -182,13 +192,27 @@ function index(props: { session: Session }): React.ReactElement {
               autoFocus
             />
 
-            <div className="border border-dashed grid place-items-start border-nord11 relative mb-5 mt-3">
+            <div className="border border-dashed grid place-items-start border-nord11 relative mb-5 mt-3 dark:text-white">
               <input
+                className="w-full bg-nord0"
                 type="file"
                 name="image"
                 id="image"
                 onChange={(e) => handleFileChange(e, e.target.files)}
               />
+            </div>
+            <div className="mt-2 mb-5 flex justify-center">
+              <div>
+                {post.image.type && (
+                  <img
+                    src={URL.createObjectURL(post.image)}
+                    className="object-cover"
+                    height="100%"
+                    width="100%"
+                    loading="lazy"
+                  />
+                )}
+              </div>
             </div>
 
             <div className="flex gap-4">
