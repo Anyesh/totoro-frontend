@@ -23,7 +23,7 @@ const Totoro = ({ Component, pageProps, session }: AuthAppProps): React.ReactEle
       }}
     >
       <AuthProvider authenticated={!!session}>
-        <ToastProvider autoDismiss autoDismissTimeout={3000} placement="bottom-right">
+        <ToastProvider autoDismiss autoDismissTimeout={2000} placement="top-right">
           <ThemeProvider attribute="class" defaultTheme="light">
             <Layout>
               <Component {...pageProps} />
