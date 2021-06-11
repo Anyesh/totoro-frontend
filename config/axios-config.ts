@@ -34,3 +34,11 @@ const axiosInstance = async (
   return axiosInstance
 }
 export default axiosInstance
+
+// Init Fetcher for SWR
+export const fetcher = (url: string, token: string): Promise<AxiosResponse> =>
+  axios.get(url, {
+    headers: { Authorization: 'Bearer ' + token },
+    baseURL: ROOT_API,
+    withCredentials: true,
+  })
