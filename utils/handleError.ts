@@ -47,6 +47,8 @@ function handleError(
     ErrorMessages.other = customMessages.other
   }
   if (error && error.response) {
+    errorResponse.errors = error.response.data.result
+
     // client received an error response (5xx, 4xx)
     if (error.response.status === 400) {
       // console.log('unauthorized, logging out ...');
