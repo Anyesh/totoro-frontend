@@ -7,6 +7,8 @@ module.exports = {
       'images.pexels.com',
       'localhost',
       'localhost:8000',
+      'storage.googleapis.com',
+      'storage.cloud.google.com',
     ],
   },
   i18n: {
