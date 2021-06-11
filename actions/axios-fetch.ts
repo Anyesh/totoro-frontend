@@ -1,9 +1,9 @@
 import axiosInstance from '@config/axios-config'
 import handleError, { errorResponse } from '@utils/handleError'
-import axios, { Method } from 'axios'
-import { OutgoingHttpHeader } from 'http'
+import { Method } from 'axios'
 import { IncomingHttpHeaders } from 'http2'
 import cache from 'memory-cache'
+import { mutate } from 'swr'
 
 export interface IAxiosResponse {
   data: Array<Record<string, unknown>> | Record<string, unknown> | unknown | null
