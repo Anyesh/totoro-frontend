@@ -45,8 +45,6 @@ function Login({
     }
   }, [])
 
-
-
   const getProviderIcon = (provider: string): React.ReactElement => {
     switch (provider) {
       case 'Google':
@@ -73,7 +71,7 @@ function Login({
   }
 
   return (
-    <div className="sm:p-5 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 place-items-center place-self-center">
+    <div className="sm:p-5 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 place-items-center">
       <div className="text-3xl text-center sm:text-center mx-auto md:text-left w-full items-center xl:w-3/5 ">
         <h1 className="text-5xl lg:text-left light:text-nord1 dark:text-nord4 font-bold">Totoro</h1>
         <p className="dark:text-nord4 light:text-nord0">{pageDescriptions}</p>
