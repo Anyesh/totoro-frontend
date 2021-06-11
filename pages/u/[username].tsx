@@ -1,38 +1,37 @@
-import { getUserDetails } from '@actions/auth'
+import { fetcher } from '@config/axios-config'
 import withAuth from '@hocs/withAuth'
-import { IUserDetail } from '@types'
 import { Session } from 'next-auth'
 import { signOut } from 'next-auth/client'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import useSWR from 'swr'
 
 function User({ session }: { session: Session }): React.ReactElement {
   const router = useRouter()
-
-  const [userDetails, setUserDetails] = useState<IUserDetail | null>()
+  const { data, error } = useSWR(['/user/ping/', session.accessToken], fetcher)
 
   useEffect(() => {
     if (!session) {
-      return
+      signOut()
     }
-
-    const getDetails = async () => {
-      const d = await getUserDetails(session?.accessToken as string)
-      if (d) {
-        setUserDetails(d)
-      } else {
-        signOut()
-      }
-    }
-    getDetails()
   }, [])
 
+  const renderContent = () => {
+    if (error) {
+      return 'There was an error' + error?.message
+    }
+    if (!error && !data) {
+      return 'Loading....'
+    }
+
+    return <code>{data?.data?.details}</code>
+  }
   return (
     <div className="text-center flex justify-center items-center">
       <div>
         <h1>You are viewing {router.query.username}&apos;s profile!</h1>
-        <p>The following detail is from the backend:</p>
-        <code>{userDetails?.details}</code>
+        <p>Following detail is from the backend:</p>
+        {renderContent()}
       </div>
     </div>
   )
