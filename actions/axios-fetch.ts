@@ -3,7 +3,6 @@ import handleError, { errorResponse } from '@utils/handleError'
 import { Method } from 'axios'
 import { IncomingHttpHeaders } from 'http2'
 import cache from 'memory-cache'
-import { mutate } from 'swr'
 
 export interface IAxiosResponse {
   data: Array<Record<string, unknown>> | Record<string, unknown> | unknown | null
