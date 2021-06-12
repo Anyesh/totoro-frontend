@@ -6,9 +6,9 @@ import { getSession, Provider } from 'next-auth/client'
 import { ThemeProvider } from 'next-themes'
 import App, { AppContext, AppInitialProps, AppProps } from 'next/app'
 import React from 'react'
-import { ToastProvider } from 'react-toast-notifications'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import '../styles/globals.css'
-
 interface AuthAppProps extends AppProps {
   session: Session
 }
@@ -23,13 +23,23 @@ const Totoro = ({ Component, pageProps, session }: AuthAppProps): React.ReactEle
       }}
     >
       <AuthProvider authenticated={!!session}>
-        <ToastProvider autoDismiss autoDismissTimeout={2000} placement="top-right">
-          <ThemeProvider attribute="class" defaultTheme="light">
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </ThemeProvider>
-        </ToastProvider>
+        <ThemeProvider attribute="class" defaultTheme="light">
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          limit={2}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </AuthProvider>
     </Provider>
   )
