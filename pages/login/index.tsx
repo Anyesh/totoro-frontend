@@ -36,7 +36,7 @@ function Login({
       return () => {
         loadingSet(null)
 
-        toast.success(`Welcome to totoro ${session?.username}`)
+        toast.dark(`Welcome to totoro ${session?.user?.name}`)
       }
     }
   }, [])
