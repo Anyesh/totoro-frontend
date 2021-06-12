@@ -41,7 +41,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
             <div className="relative inline-block text-left ">
               <Menu>
                 <>
-                  <Menu.Button className="hover:bg-nord10 text-nord3 hover:text-white dark:text-nord4 px-3 text-sm font-medium rounded-md focus:outline-none inline-flex items-center ">
+                  <Menu.Button className="hover:bg-nord10 text-nord3 hover:text-white dark:text-nord4 px-3 text-sm font-medium rounded-md focus:outline-none border-none inline-flex items-center ">
                     <img
                       src={`${session?.user?.image}`}
                       alt={`${session?.user?.name}`}
@@ -69,25 +69,27 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
                   >
                     <Menu.Items
                       static
-                      className="absolute right-0 w-56 origin-top-right  border rounded-md shadow-lg outline-none bg-nord6 dark:bg-nord0 "
+                      className="absolute right-0 w-56 origin-top-right rounded-md shadow-lg outline-none dark:border-none bg-white dark:bg-nord0 "
                     >
                       <div className="py-1 ">
                         <Link href={`/u/@${session?.user?.name}`}>
-                          <Menu.Item>
-                            <button
-                              type="button"
-                              className="text-nord0 dark:text-nord6 hover:text-nord6 hover:bg-nord3 w-full px-4 py-2 text-sm text-left focus:outline-none"
-                            >
-                              Profile
-                            </button>
-                          </Menu.Item>
+                          <a>
+                            <Menu.Item>
+                              <button
+                                type="button"
+                                className="text-nord0 dark:text-nord6 hover:text-nord6 hover:bg-nord3 rounded-lg w-full px-4 py-2 text-sm text-left focus:outline-none"
+                              >
+                                Profile
+                              </button>
+                            </Menu.Item>
+                          </a>
                         </Link>
                       </div>
 
                       <div className="py-1">
                         <Menu.Item>
                           <button
-                            className="text-nord0 dark:text-nord6 hover:text-nord6 hover:bg-nord3 w-full px-4 py-2 text-sm text-left focus:outline-none"
+                            className="text-nord0 dark:text-nord6 hover:text-nord6 hover:bg-nord3 rounded-lg w-full px-4 py-2 text-sm text-left focus:outline-none"
                             onClick={() => handleLogout()}
                             type="button"
                           >
