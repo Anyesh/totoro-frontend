@@ -1,12 +1,19 @@
 import Loadin from '@assets/IconComponents/Loadin'
+import PropTypes from 'prop-types'
 import React from 'react'
-export default function Loading(): React.ReactElement {
+export default function Loading({ content }: { content?: string }): React.ReactElement {
   return (
-    <div className="grid place-items-center p-20">
-      <h1 className="flex items-center">
-        <Loadin className="animate-bounce fill-current" />
-        <span className="ml-5 animate-pulse font-light">loading...</span>
-      </h1>
+    <div className="flex flex-row content-center w-screen justify-center">
+      <Loadin className="animate-spin fill-current" width="100" height="100" />
+      <h1 className="flex items-center">{content}</h1>
     </div>
   )
+}
+
+Loading.propTypes = {
+  content: PropTypes.string,
+}
+
+Loading.defaultProps = {
+  content: 'We are getting your things ready..',
 }
