@@ -8,7 +8,7 @@ import Providers from 'next-auth/providers'
 import { useRouter } from 'next/dist/client/router'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { useToasts } from 'react-toast-notifications'
+import { toast } from 'react-toastify'
 
 const pageDescriptions = 'Totoro is an AI-enabled social networking web application.'
 
@@ -25,7 +25,6 @@ function Login({
   session: Session
 }): React.ReactElement {
   const router = useRouter()
-  const { addToast } = useToasts()
 
   const [loading, loadingSet] = useState<string | null>()
   // const [submission, submissionSet] = useState<boolean>(false)
@@ -37,10 +36,7 @@ function Login({
       return () => {
         loadingSet(null)
 
-        addToast(`Welcome to totoro ${session?.user?.name}`, {
-          appearance: 'success',
-          autoDismiss: true,
-        })
+        toast.success(`Welcome to totoro ${session?.username}`)
       }
     }
   }, [])

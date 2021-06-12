@@ -1,6 +1,7 @@
 import { postNewContent } from '@actions/posts'
-import { Add, Loadin } from '@assets/IconComponents'
+import { Add } from '@assets/IconComponents'
 import Card from '@components/Card'
+import Loading from '@components/Common/Loading'
 import PostDetails from '@components/PostDetails'
 import { fetcher } from '@config/axios-config'
 import withAuth from '@hocs/withAuth'
@@ -12,7 +13,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import Modal from 'react-modal'
-import { useToasts } from 'react-toast-notifications'
+import { toast } from 'react-toastify'
 import useSWR from 'swr'
 
 Modal.setAppElement('#__next')
@@ -39,7 +40,6 @@ interface PostContnetData {
 function index(props: { session: Session }): React.ReactElement {
   // Props
   const { session } = props
-  const { addToast } = useToasts()
 
   // Router
   const router = useRouter()
@@ -86,9 +86,7 @@ function index(props: { session: Session }): React.ReactElement {
       mutate(resp.data as AxiosResponse)
       reset()
     } else {
-      addToast(resp.error.message, {
-        appearance: 'error',
-      })
+      toast.error(resp.error.message)
       setErr(resp.error.errors)
       setSubmissionLoading(false)
     }
@@ -126,10 +124,7 @@ function index(props: { session: Session }): React.ReactElement {
     if (!data && !error) {
       return (
         <div>
-          <div className="flex flex-row justify-center justify-items-center gap-8 animate-bounce items-center ">
-            <Loadin className="fill-current" />
-            <h2>Loading Contents...</h2>
-          </div>
+          <Loading content="Loading contents for you!" />
         </div>
       )
     }
