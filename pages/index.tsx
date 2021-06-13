@@ -59,10 +59,11 @@ function index(props: { session: Session }): React.ReactElement {
 
   const handlePostSubmission = async (e: React.SyntheticEvent): Promise<void> => {
     e.preventDefault()
+    setUploadProgress(0)
 
     const callback = (evt: ProgressEvent) => {
       const progress = (evt.loaded / evt.total) * 100
-      setUploadProgress(progress)
+      setUploadProgress(Math.ceil(progress / 5) * 5)
     }
 
     setSubmissionLoading(true)
@@ -84,7 +85,9 @@ function index(props: { session: Session }): React.ReactElement {
       setPost({ title: '', image: new File([''], 'filename') })
 
       mutate(resp.data as AxiosResponse)
-      reset()
+      setTimeout(() => {
+        reset()
+      }, 1000)
     } else {
       toast.error(resp.error.message)
       setErr(resp.error.errors)
@@ -114,10 +117,10 @@ function index(props: { session: Session }): React.ReactElement {
   }
 
   const reset = () => {
-    setPostModal(false)
-    setErr([])
     setUploadProgress(0)
+    setErr([])
     setPost({ title: '', image: new File([''], 'filename') })
+    setPostModal(false)
   }
 
   const renderContent = () => {
@@ -162,12 +165,12 @@ function index(props: { session: Session }): React.ReactElement {
         {renderContent()}
 
         <button
-          className="fixed bottom-0 right-0  bg-white dark:bg-nord3  rounded-full w-10 h-10 p-1  focus:outline-none"
+          className="fixed bottom-0 right-0  bg-nord14  rounded-full w-10 h-10 p-1  focus:outline-none transform hover:-translate-y-2 transition duration-500"
           type="button"
           style={{ margin: '20px' }}
           onClick={() => setPostModal(!postModal)}
         >
-          <Add className="fill-current" />
+          <Add className="mx-auto" />
         </button>
       </section>
 
@@ -183,8 +186,18 @@ function index(props: { session: Session }): React.ReactElement {
             <hr />
 
             <div className="p-4">
-              {uploadProgress > 0 ? (
-                <div className="mt-3 mb-3">Uploaded: {uploadProgress}%</div>
+              {uploadProgress > 0 && !err ? (
+                <div className="mt-2 mb-2">
+                  <p>{uploadProgress}%</p>
+                  <div className="relative pt-1">
+                    <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-nord3 dark:bg-nord6">
+                      <div
+                        style={{ width: `${uploadProgress}%` }}
+                        className="shadow-none transition-all ease-out duration-1000 flex flex-col text-center whitespace-nowrap dark:text-white justify-center bg-nord14"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
               ) : (
                 ''
               )}
@@ -201,6 +214,19 @@ function index(props: { session: Session }): React.ReactElement {
               noValidate
               onSubmit={handlePostSubmission}
             >
+              <div className="border border-dashed flex items-center justify-center place-items-start border-nord10 relative mb-5 mt-3 p-2">
+                <p className="absolute dark:text-gray-300">
+                  {' '}
+                  {post?.image?.type ? `Filename: ${post?.image?.name}` : 'Select an image'}
+                </p>
+                <input
+                  className="w-full dark:bg-nord0 opacity-0 relative"
+                  type="file"
+                  name="image"
+                  id="image"
+                  onChange={(e) => handleFileChange(e, e.target.files)}
+                />
+              </div>
               <label htmlFor="title">Title: </label>
               <input
                 id="title"
@@ -210,19 +236,9 @@ function index(props: { session: Session }): React.ReactElement {
                 required={true}
                 value={post.title}
                 onChange={handleChange}
-                className="input dark:bg-nord3"
+                className="input dark:bg-nord0 placeholder-gray-500"
                 autoFocus
               />
-
-              <div className="border border-dashed grid place-items-start border-nord11 relative mb-5 mt-3">
-                <input
-                  className="w-full bg-nord0"
-                  type="file"
-                  name="image"
-                  id="image"
-                  onChange={(e) => handleFileChange(e, e.target.files)}
-                />
-              </div>
               <div className="mt-2 mb-5 flex justify-center ">
                 {post?.image?.type && (
                   <div style={{ overflow: 'scroll', height: '300px' }}>
