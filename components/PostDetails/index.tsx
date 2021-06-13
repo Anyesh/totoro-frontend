@@ -13,14 +13,25 @@ function PostDetails({ id, session }: { id: string; session: Session }): React.R
   )
 
   const renderContent = () => {
-    if (!data && !error) return <Loading />
+    if (!data && !error)
+      return (
+        <div className="flex w-100">
+          <Loading />
+        </div>
+      )
 
-    if (error) return <div className="p-5 text-nord11"> There was an error! {error.message}</div>
+    if (error)
+      return (
+        <div className="flex w-100 p-5 text-nord11 mx-auto justify-center font-semibold">
+          {' '}
+          There was an error! {error?.message}
+        </div>
+      )
 
     const result = data?.data.result.data
     return (
-      <div className="grid md:grid-cols-2 sm:grid-cols-1 text-center p-6 ">
-        <div className="place-self-center">
+      <div className="flex flex-row justify-center items-center p-6 gap-4 ">
+        <div className="">
           <Image
             className=" rounded-lg"
             objectFit="cover"
@@ -29,14 +40,15 @@ function PostDetails({ id, session }: { id: string; session: Session }): React.R
             height={result?.src?.original?.height}
             width={result?.src?.original?.width}
           />
-        </div>
-        <div className="place-self-center self-center space-y-7 p-5">
           <h1 className="font-semibold">{result?.title}</h1>
+        </div>
+        <div className="">
+          <h3 className="font-semibold mt-2 mb-2">Comments</h3>
           <hr />
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, enim? Itaque obcaecati
-            dolor, molestias dicta officia natus nostrum sequi ea commodi, cupiditate, odio
-            veritatis minima hic quaerat aperiam quibusdam labore.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. At eligendi iure doloremque
+            sed. Dicta, cum voluptas, itaque excepturi sunt necessitatibus nihil asperiores numquam,
+            eveniet nobis ex quidem? Laboriosam, saepe dignissimos.
           </p>
         </div>
       </div>
