@@ -126,7 +126,7 @@ function index(props: { session: Session }): React.ReactElement {
     if (!data && !error) {
       return (
         <div>
-          <Loading content="Loading contents for you!" />
+          <Loading content="Loading contents.." />
         </div>
       )
     }

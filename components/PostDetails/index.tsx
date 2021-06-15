@@ -17,7 +17,7 @@ function PostDetails({ id, session }: { id: string; session: Session }): React.R
     if (!data && !error)
       return (
         <div className="flex w-100">
-          <Loading />
+          <Loading content="Loading content.." />
         </div>
       )
 
