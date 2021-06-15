@@ -1,5 +1,6 @@
 import Loading from '@components/Common/Loading'
 import { fetcher } from '@config/axios-config'
+import { IContent, IContentArr } from '@types'
 import isEmpty from '@validations/is-empty'
 import { Session } from 'next-auth'
 import Image from 'next/image'
@@ -28,19 +29,20 @@ function PostDetails({ id, session }: { id: string; session: Session }): React.R
         </div>
       )
 
-    const result = data?.data.result.data
+    const result = data?.data.result as IContentArr
+    const res_data = result?.data?.find((e) => !!e) as IContent
     return (
       <div className="flex flex-row justify-center items-center p-6 gap-4 ">
         <div className="">
           <Image
             className=" rounded-lg"
             objectFit="cover"
-            alt={result?.title}
-            src={result?.src?.original?.url}
-            height={result?.src?.original?.height}
-            width={result?.src?.original?.width}
+            alt={res_data?.title}
+            src={res_data?.src?.original?.url}
+            height={res_data?.src?.original?.height}
+            width={res_data?.src?.original?.width}
           />
-          <h1 className="font-semibold">{result?.title}</h1>
+          <h1 className="font-semibold">{res_data?.title}</h1>
         </div>
         <div className="">
           <h3 className="font-semibold mt-2 mb-2">Comments</h3>

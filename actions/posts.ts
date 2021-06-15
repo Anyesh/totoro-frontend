@@ -1,7 +1,7 @@
 import { AxiosKwargs, cacheFetch, fetch, IAxiosResponse } from './axios-fetch'
 
 export const fetchContent = async (token: string): Promise<IAxiosResponse> => {
-  const url = '/posts/'
+  const url = '/post/all/'
 
   const kwargs: AxiosKwargs = {
     method: 'GET',

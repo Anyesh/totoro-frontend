@@ -7,7 +7,6 @@ import { fetcher } from '@config/axios-config'
 import withAuth from '@hocs/withAuth'
 import { IContent } from '@types'
 import isEmpty from '@validations/is-empty'
-import { AxiosResponse } from 'axios'
 import { Session } from 'next-auth'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -55,7 +54,7 @@ function index(props: { session: Session }): React.ReactElement {
   })
 
   // SWR State
-  const { data, error, mutate } = useSWR(['/posts/', session.accessToken], fetcher)
+  const { data, error, mutate } = useSWR(['/post/all/', session.accessToken], fetcher)
 
   const handlePostSubmission = async (e: React.SyntheticEvent): Promise<void> => {
     e.preventDefault()
@@ -84,7 +83,7 @@ function index(props: { session: Session }): React.ReactElement {
       setSubmissionLoading(false)
       setPost({ title: '', image: new File([''], 'filename') })
 
-      mutate(resp.data as AxiosResponse)
+      mutate()
       setTimeout(() => {
         reset()
       }, 1000)

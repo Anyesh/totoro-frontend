@@ -95,7 +95,7 @@ export interface IContent {
 
   likes: Record<string, unknown>
 
-  author: {
+  _author: {
     username: string
     user_id: string
     email: string
@@ -107,19 +107,26 @@ export interface IContent {
   }
 }
 
-export interface IContentArr extends DRFResponse {
-  result: { data: Array<IContent> }
+export interface DRFPaginatedResult {
+  next?: string
+  previous?: string
+  count: number
+  data: Array<unknown>
+}
+
+export interface DRFResponse {
+  result: DRFPaginatedResult
+  message: string
+  status: boolean
+  status_code: number
+}
+
+export interface IContentArr extends DRFPaginatedResult {
+  data: Array<IContent>
 }
 
 export interface IContentRecord extends DRFResponse {
   result: { data: IContent }
-}
-
-export interface DRFResponse {
-  result: Record<string, unknown>
-  message: string
-  status: boolean
-  status_code: number
 }
 
 export interface IUnsplashContent {

@@ -30,18 +30,18 @@ const Card = ({ data }: { data: IContent }): React.ReactElement => {
         </h1>
       </div>
       <div className="p-2 flex justify-between">
-        <Link href={`/u/@${data.author.username}`}>
+        <Link href={`/u/@${data?._author.username}`}>
           <a
             className="flex items-center hover:text-nord10 transition duration-500"
             target="__blank"
           >
             <img
               loading="lazy"
-              alt={data.author.username}
+              alt={data?._author.username}
               className="block object-cover rounded-full w-7 h-7"
               src={data.src.thumbnail.url}
             />
-            <span className="ml-2 text-sm font-bold"> {data.author.username} </span>
+            <span className="ml-2 text-sm font-bold"> {data?._author.username} </span>
           </a>
         </Link>
         <button
