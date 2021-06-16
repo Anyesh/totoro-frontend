@@ -104,6 +104,7 @@ export interface IContent {
   src: {
     original: ImageAttr
     thumbnail: ImageAttr
+    placeholder: ImageAttr
   }
 }
 
@@ -129,30 +130,7 @@ export interface IContentRecord extends DRFResponse {
   result: { data: IContent }
 }
 
-export interface IUnsplashContent {
-  id: string
-  alt_description: string
-  categories?: []
-  color: string
-  create_at: string
-  update_at: string
-  description?: string | null
-  height: number
-  width: number
-  links: {
-    self: string
-    html: string
-  }
-  users: {
-    id: string
-    update_at: string
-    username: string
-  }
-  urls: {
-    full: string
-    raw: string
-    regular: string
-    small: string
-    thumb: string
-  }
+export interface PostContnetData {
+  title: string
+  image: File
 }
