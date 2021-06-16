@@ -5,7 +5,8 @@ import Loading from '@components/Common/Loading'
 import PostDetails from '@components/PostDetails'
 import { fetcher } from '@config/axios-config'
 import withAuth from '@hocs/withAuth'
-import { IContent } from '@types'
+import { IContent, PostContnetData } from '@types'
+import { validateCreatePost } from '@validations/create-post-validation'
 import isEmpty from '@validations/is-empty'
 import { Session } from 'next-auth'
 import Head from 'next/head'
@@ -31,11 +32,6 @@ const customStyles: Modal.Styles = {
   },
 }
 
-interface PostContnetData {
-  title: string
-  image: File
-}
-
 function index(props: { session: Session }): React.ReactElement {
   // Props
   const { session } = props
@@ -44,7 +40,7 @@ function index(props: { session: Session }): React.ReactElement {
   const router = useRouter()
 
   // State
-  const [err, setErr] = useState<Array<Record<string, string[]>>>()
+  const [err, setErr] = useState<unknown>()
   const [uploadProgress, setUploadProgress] = useState(0)
   const [submissionLoading, setSubmissionLoading] = useState(false)
   const [postModal, setPostModal] = useState(false)
@@ -66,6 +62,13 @@ function index(props: { session: Session }): React.ReactElement {
     }
 
     setSubmissionLoading(true)
+
+    const { isValid, errors } = validateCreatePost(post)
+    if (!isValid) {
+      setErr(errors)
+      setSubmissionLoading(false)
+      return
+    }
 
     const formData = new FormData()
 
@@ -201,10 +204,11 @@ function index(props: { session: Session }): React.ReactElement {
                 ''
               )}
 
+              {/* TODO: Fix err type */}
               {err &&
-                Object.keys(err).map((k, i) => (
+                Object.keys(err as Record<string, string>).map((k, i) => (
                   <li key={i} className="text-nord11">
-                    {k}: {Object.values(err)[i]}
+                    {k}: {Object.values(err as Record<string, string>)[i]}
                   </li>
                 ))}
             </div>
