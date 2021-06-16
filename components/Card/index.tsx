@@ -41,7 +41,7 @@ const Card = ({ data }: { data: IContent }): React.ReactElement => {
               loading="lazy"
               alt={data?._author.username}
               className="block object-cover rounded-full w-7 h-7"
-              src={data.src.thumbnail.url}
+              src={data?._author?.avatar}
             />
             <span className="ml-2 text-sm font-bold"> {data?._author.username} </span>
           </a>

@@ -32,8 +32,8 @@ function PostDetails({ id, session }: { id: string; session: Session }): React.R
     const result = data?.data.result as IContentArr
     const res_data = result?.data?.find((e) => !!e) as IContent
     return (
-      <div className="grid md:grid-cols-2 sm:grid-cols-1 justify-center items-center p-6 gap-4 ">
-        <div className="">
+      <div className="flex flex-wrap justify-center items-start p-6 gap-4 ">
+        <div className="lg:flex-1 flex-grow">
           <Image
             className="rounded-lg"
             placeholder="blur"
@@ -47,7 +47,7 @@ function PostDetails({ id, session }: { id: string; session: Session }): React.R
           />
           <h1 className="font-semibold">{res_data?.title}</h1>
         </div>
-        <div className="">
+        <div className="lg:flex-1 flex-grow">
           <h3 className="font-semibold mt-2 mb-2">Comments</h3>
           <hr />
           <p>

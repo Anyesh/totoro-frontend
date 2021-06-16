@@ -2,6 +2,7 @@ import { fetcher } from '@config/axios-config'
 import withAuth from '@hocs/withAuth'
 import { Session } from 'next-auth'
 import { signOut } from 'next-auth/client'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import useSWR from 'swr'
@@ -27,13 +28,18 @@ function User({ session }: { session: Session }): React.ReactElement {
     return <code>{data?.data?.details}</code>
   }
   return (
-    <div className="text-center flex justify-center items-center">
-      <div>
-        <h1>You are viewing {router.query.username}&apos;s profile!</h1>
-        <p>Following detail is from the backend:</p>
-        {renderContent()}
+    <>
+      <Head>
+        <title>Totoro | {router.query.username}</title>
+      </Head>
+      <div className="text-center flex justify-center items-center">
+        <div>
+          <h1>You are viewing {router.query.username}&apos;s profile!</h1>
+          <p>Following detail is from the backend:</p>
+          {renderContent()}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

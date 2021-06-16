@@ -99,6 +99,7 @@ export interface IContent {
     username: string
     user_id: string
     email: string
+    avatar: string
   }
 
   src: {
