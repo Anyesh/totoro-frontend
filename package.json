@@ -12,7 +12,8 @@
     "prepare": "husky install",
     "check-lint": "eslint . --ext ts --ext tsx --ext js --quiet --fix",
     "format": "prettier --write .",
-    "test-all": "npm run check-format && npm run check-lint && npm run check-types"
+    "test-all": "npm run check-format && npm run check-lint && npm run check-types",
+    "lint": "next lint"
   },
   "husky": {
     "hooks": {
@@ -34,9 +35,10 @@
   "dependencies": {
     "@headlessui/react": "^1.2.0",
     "axios": "^0.21.1",
+    "blurhash": "^1.1.3",
     "jwt-decode": "^3.1.2",
     "memory-cache": "^0.2.0",
-    "next": "10.2.0",
+    "next": "11.0.0",
     "next-auth": "^3.24.0",
     "next-themes": "^0.0.14",
     "react": "17.0.2",
@@ -62,6 +64,7 @@
     "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^7.27.0",
     "eslint-config-google": "^0.14.0",
+    "eslint-config-next": "^11.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.23.2",
     "husky": "^6.0.0",
