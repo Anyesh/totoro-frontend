@@ -32,11 +32,14 @@ function PostDetails({ id, session }: { id: string; session: Session }): React.R
     const result = data?.data.result as IContentArr
     const res_data = result?.data?.find((e) => !!e) as IContent
     return (
-      <div className="flex flex-row justify-center items-center p-6 gap-4 ">
+      <div className="grid md:grid-cols-2 sm:grid-cols-1 justify-center items-center p-6 gap-4 ">
         <div className="">
           <Image
-            className=" rounded-lg"
+            className="rounded-lg"
+            placeholder="blur"
+            blurDataURL={res_data?.src?.placeholder?.url}
             objectFit="cover"
+            // layout="fill"
             alt={res_data?.title}
             src={res_data?.src?.original?.url}
             height={res_data?.src?.original?.height}
