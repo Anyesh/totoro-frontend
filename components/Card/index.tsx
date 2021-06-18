@@ -15,7 +15,7 @@ const Card = ({ data }: { data: IContent }): React.ReactElement => {
               blurDataURL={data?.src?.placeholder?.url}
               className="rounded-lg"
               layout="responsive"
-              // objectFit="cover"
+              objectFit="cover"
               alt={data?.title}
               src={data?.src?.thumbnail?.url}
               height={data?.src?.thumbnail?.height + 90}
