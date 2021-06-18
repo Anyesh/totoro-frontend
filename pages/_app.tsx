@@ -29,7 +29,7 @@ const Totoro = ({ Component, pageProps, session }: AuthAppProps): React.ReactEle
           </Layout>
         </ThemeProvider>
         <ToastContainer
-          position="bottom-right"
+          position="bottom-center"
           autoClose={3000}
           hideProgressBar={false}
           newestOnTop={false}
