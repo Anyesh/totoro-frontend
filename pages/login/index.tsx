@@ -6,6 +6,7 @@ import { Session } from 'next-auth'
 import { getProviders, getSession, signIn } from 'next-auth/client'
 import Providers from 'next-auth/providers'
 import { useRouter } from 'next/dist/client/router'
+import Head from 'next/head'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
@@ -67,48 +68,55 @@ function Login({
   }
 
   return (
-    <div className="sm:p-5 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 place-items-center">
-      <div className="text-3xl text-center sm:text-center mx-auto md:text-left w-full items-center xl:w-3/5 ">
-        <h1 className="text-5xl lg:text-left light:text-nord1 dark:text-nord4 font-bold">Totoro</h1>
-        <p className="dark:text-nord4 light:text-nord0">{pageDescriptions}</p>
-      </div>
-      <div className="items-center  xl:w-3/5 w-full  shadow-xl light:bg-white dark:bg-nord3 bg-nord5 rounded-lg p-5 mt-10">
-        {/* <h1 className="font-semibold text-left p-2">Log in to Totoro</h1> */}
-        {/* <hr className="opacity-20 mt-2 mb-3" /> */}
-
-        <div className="mt-3 mb-3">
-          {providers &&
-            Object.values(providers).map((provider) => (
-              <div key={provider.name}>
-                <button
-                  onClick={(e) => handleSignIn(e, provider)}
-                  className={`btn hover:opacity-80 items-center inline-flex justify-center mt-3 mb-3 ${provider.name} fill-current disabled:btn-disable`}
-                  disabled={loading ? true : false}
-                  type="button"
-                >
-                  {getProviderIcon(provider.name)}
-
-                  <span> Continue with {provider.name}</span>
-                </button>
-              </div>
-            ))}
+    <>
+      <Head>
+        <title>Totoro | Login</title>
+      </Head>
+      <div className="sm:p-5 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 place-items-center">
+        <div className="text-3xl text-center sm:text-center mx-auto md:text-left w-full items-center xl:w-3/5 ">
+          <h1 className="text-5xl lg:text-left light:text-nord1 dark:text-nord4 font-bold">
+            Totoro
+          </h1>
+          <p className="dark:text-nord4 light:text-nord0">{pageDescriptions}</p>
         </div>
-        {/* <hr className="opacity-20 hr-text " data-content="OR" />
+        <div className="items-center  xl:w-3/5 w-full  shadow-xl light:bg-white dark:bg-nord3 bg-nord5 rounded-lg p-5 mt-10">
+          {/* <h1 className="font-semibold text-left p-2">Log in to Totoro</h1> */}
+          {/* <hr className="opacity-20 mt-2 mb-3" /> */}
+
+          <div className="mt-3 mb-3">
+            {providers &&
+              Object.values(providers).map((provider) => (
+                <div key={provider.name}>
+                  <button
+                    onClick={(e) => handleSignIn(e, provider)}
+                    className={`btn hover:opacity-80 items-center inline-flex justify-center mt-3 mb-3 ${provider.name} fill-current disabled:btn-disable`}
+                    disabled={loading ? true : false}
+                    type="button"
+                  >
+                    {getProviderIcon(provider.name)}
+
+                    <span> Continue with {provider.name}</span>
+                  </button>
+                </div>
+              ))}
+          </div>
+          {/* <hr className="opacity-20 hr-text " data-content="OR" />
         <LoginForm state={state} handleSubmission={handleSubmission} handleChange={handleChange} /> */}
 
-        {/* <Link href="/signup">
+          {/* <Link href="/signup">
           <a className="btn hover:opacity-80 text-center bg-nord11 mt-4 mb-4">Create New Account</a>
         </Link> */}
 
-        <p className="text-center text-sm mt-4">
-          By logging in you agree to our{' '}
-          <span className="font-semibold text-center w-full">
-            <Link href="/terms">terms & conditions</Link>
-          </span>
-          .
-        </p>
+          <p className="text-center text-sm mt-4">
+            By logging in you agree to our{' '}
+            <span className="font-semibold text-center w-full">
+              <Link href="/terms">terms & conditions</Link>
+            </span>
+            .
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
