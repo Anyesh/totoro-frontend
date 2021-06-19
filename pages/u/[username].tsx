@@ -25,7 +25,7 @@ function User({ session }: { session: Session }): React.ReactElement {
       return 'Loading....'
     }
 
-    return <code>{data?.data?.details}</code>
+    return <code>{data?.data?.result?.data?.user?.username}</code>
   }
   return (
     <>
