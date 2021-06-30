@@ -1,8 +1,11 @@
 import { ROOT_API } from '@config'
 import axiosInstance from '@config/axios-config'
 import { IUserDetail } from '@types'
+import isEmpty from '@validations/is-empty'
 import axios from 'axios'
 import { signOut } from 'next-auth/client'
+import { toast } from 'react-toastify'
+import { AxiosKwargs, fetch } from './axios-fetch'
 
 interface ServerData {
   user: {
@@ -82,10 +85,29 @@ export const getUserDetails = async (token: string): Promise<IUserDetail | null>
   }
 }
 
-export const handleLogout = (): void => {
-  signOut()
-  // axios
-  //   .post(ROOT_API + '/auth/logout/')
-  //   .then((res) => signOut())
-  //   .catch((err) => console.log(err))
+export const handleLogout = async ({
+  token,
+  refreshToken,
+}: {
+  token: string
+  refreshToken: string
+}): Promise<void> => {
+  const url = '/auth/logout/'
+
+  const kwargs: AxiosKwargs = {
+    method: 'POST',
+    token: token,
+    headers: {},
+    data: { refresh_token: refreshToken },
+    callback: () => {
+      undefined
+    },
+  }
+  const res = await fetch(url, kwargs)
+  if (!isEmpty(res.error)) {
+    toast.dark(res.error?.message)
+  } else {
+    signOut()
+    // toast.dark(res.data)
+  }
 }
