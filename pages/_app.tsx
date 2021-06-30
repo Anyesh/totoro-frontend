@@ -49,8 +49,6 @@ Totoro.getInitialProps = async (
   context: unknown
 ): Promise<AppInitialProps & { session: Session | null }> => {
   const session = await getSession(context as NextPageContext)
-  console.log('Initial prop running')
-
   // Call the page's `getInitialProps` and fill `appProps.pageProps`
   const appProps = await App.getInitialProps(context as AppContext)
 
