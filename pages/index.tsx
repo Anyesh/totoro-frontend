@@ -6,8 +6,10 @@ import PostDetails from '@components/PostDetails'
 import { fetcher } from '@config/axios-config'
 import withAuth from '@hocs/withAuth'
 import { IContent, PostContnetData } from '@types'
+import handleError from '@utils/handleError'
 import { validateCreatePost } from '@validations/create-post-validation'
 import isEmpty from '@validations/is-empty'
+import { AxiosError } from 'axios'
 import { Session } from 'next-auth'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -52,6 +54,8 @@ function index(props: { session: Session }): React.ReactElement {
   // SWR State
   const { data, error, mutate } = useSWR(['/post/all/', session.accessToken], fetcher)
 
+  const fetchError = handleError(error)
+
   const handlePostSubmission = async (e: React.SyntheticEvent): Promise<void> => {
     e.preventDefault()
     setUploadProgress(0)
@@ -65,7 +69,8 @@ function index(props: { session: Session }): React.ReactElement {
 
     const { isValid, errors } = validateCreatePost(post)
     if (!isValid) {
-      setErr(errors)
+      const errorResponse = handleError(errors as AxiosError)
+      setErr(errorResponse)
       setSubmissionLoading(false)
       return
     }
@@ -138,7 +143,7 @@ function index(props: { session: Session }): React.ReactElement {
         <div>
           <div className="flex flex-col justify-center justify-items-center gap-4 items-center w-full ">
             <h2>There was an error!</h2>
-            <p className="text-nord11">{error.message}</p>
+            <p className="text-nord11">{fetchError.message}</p>
           </div>
         </div>
       )
@@ -167,7 +172,7 @@ function index(props: { session: Session }): React.ReactElement {
         {renderContent()}
 
         <button
-          className="fixed bottom-0 right-0  bg-nord14  rounded-full w-10 h-10 p-1  focus:outline-none transform hover:-translate-y-2 transition duration-500"
+          className="fixed bottom-0 right-0 add-btn bg-nord14  rounded-full w-10 h-10 p-1  focus:outline-none transform hover:-translate-y-2 transition duration-500"
           type="button"
           style={{ margin: '20px' }}
           onClick={() => setPostModal(!postModal)}
@@ -223,7 +228,7 @@ function index(props: { session: Session }): React.ReactElement {
                   {post?.image?.type ? `Filename: ${post?.image?.name}` : 'Select an image'}
                 </p>
                 <input
-                  className="w-full dark:bg-nord0 opacity-0 relative"
+                  className="w-full dark:bg-nord0 opacity-0 relative cursor-pointer"
                   type="file"
                   name="image"
                   id="image"
