@@ -1,7 +1,6 @@
-import { handleLogout } from '@actions/auth'
 import { Cat, Moon, Sun } from '@assets/IconComponents'
 import { Menu, Transition } from '@headlessui/react'
-import { useSession } from 'next-auth/client'
+import { signOut, useSession } from 'next-auth/client'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import React, { Fragment, useEffect } from 'react'
@@ -10,6 +9,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
   // const [isOpen, setIsOpen] = useState(false)
 
   const [session, loading] = useSession()
+
   // const navRef = useRef(null)
 
   const isAuthenticated = !loading && !!session
@@ -90,7 +90,7 @@ export default function Nav({ name }: { name: string }): React.ReactElement {
                         <Menu.Item>
                           <button
                             className="text-nord0 dark:text-nord6 hover:text-nord6 hover:bg-nord3 rounded-lg w-full px-4 py-2 text-sm text-left focus:outline-none"
-                            onClick={() => handleLogout()}
+                            onClick={() => signOut()}
                             type="button"
                           >
                             Sign out
