@@ -1,7 +1,7 @@
-import { getInitialTokenFromDRF, refreshTokenFromDRF } from '@actions/auth'
+import { getInitialTokenFromDRF, handleLogout, refreshTokenFromDRF } from '@actions/auth'
 import { isJwtExpired } from '@utils/jwt'
 import { NextApiRequest, NextApiResponse } from 'next'
-import NextAuth, { NextAuthOptions } from 'next-auth'
+import NextAuth, { NextAuthOptions, Session } from 'next-auth'
 import Providers from 'next-auth/providers'
 
 // interface ServerResponse {
@@ -10,6 +10,7 @@ import Providers from 'next-auth/providers'
 
 const settings: NextAuthOptions = {
   pages: { signIn: '/login', error: '/error' },
+
   secret: process.env.SESSION_SECRET,
   session: {
     jwt: true,
@@ -34,6 +35,14 @@ const settings: NextAuthOptions = {
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
     }),
   ],
+  events: {
+    signOut: async (message: Session) => {
+      handleLogout({
+        token: message?.accessToken as string,
+        refreshToken: message?.refreshToken as string,
+      })
+    },
+  },
   callbacks: {
     jwt: async (token, user, account) => {
       if (user) {
@@ -90,6 +99,7 @@ const settings: NextAuthOptions = {
         image: userOrToken?.picture as string,
       }
       session.accessToken = userOrToken.accessToken
+      session.refreshToken = userOrToken.refreshToken
       return session
     },
   },
