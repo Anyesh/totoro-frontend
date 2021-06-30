@@ -6,18 +6,19 @@ import { Session } from 'next-auth'
 import { getProviders, getSession, signIn } from 'next-auth/client'
 import Providers from 'next-auth/providers'
 import { useRouter } from 'next/dist/client/router'
+import dynamic from 'next/dist/next-server/lib/dynamic'
 import Head from 'next/head'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
-const pageDescriptions = 'Totoro is an AI-enabled social networking web application.'
-
+const Tour = dynamic(() => import('reactour'), { ssr: false })
 interface IProvider {
   id: string
   name: string
 }
 
+const pageDescriptions = 'Totoro is an AI-enabled social networking web application.'
 function Login({
   providers,
   session,
@@ -29,6 +30,7 @@ function Login({
 
   const [loading, loadingSet] = useState<string | null>()
   // const [submission, submissionSet] = useState<boolean>(false)
+  const [isTourOpen, setIsTourOpen] = useState(true)
 
   useEffect(() => {
     if (session) {
@@ -62,16 +64,35 @@ function Login({
     e.preventDefault()
 
     loadingSet(provider.name)
-    setTimeout(() => {
-      signIn(provider.id)
-    }, 1.5 * 1000)
+
+    signIn(provider.id, { callbackUrl: '/' })
+      .then((res) => {
+        console.log(res)
+        toast.error(res)
+      })
+      .catch((err) => {
+        toast.error(err)
+        router.push('/error')
+      })
   }
+  const steps = [
+    {
+      selector: '.social-stack',
+      content: 'You can continue with any of these social logins.',
+    },
+    {
+      selector: '.Google',
+      content: 'Click here to continue with google',
+    },
+  ]
 
   return (
     <>
       <Head>
         <title>Totoro | Login</title>
       </Head>
+      <Tour steps={steps} isOpen={isTourOpen} onRequestClose={() => setIsTourOpen(false)} />
+
       <div className="sm:p-5 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 place-items-center">
         <div className="text-3xl text-center sm:text-center mx-auto md:text-left w-full items-center xl:w-3/5 ">
           <h1 className="text-5xl lg:text-left light:text-nord1 dark:text-nord4 font-bold">
@@ -79,7 +100,7 @@ function Login({
           </h1>
           <p className="dark:text-nord4 light:text-nord0">{pageDescriptions}</p>
         </div>
-        <div className="items-center  xl:w-3/5 w-full  shadow-xl light:bg-white dark:bg-nord3 bg-nord5 rounded-lg p-5 mt-10">
+        <div className="items-center social-stack xl:w-3/5 w-full  shadow-xl light:bg-white dark:bg-nord3 bg-nord5 rounded-lg p-5 mt-10">
           {/* <h1 className="font-semibold text-left p-2">Log in to Totoro</h1> */}
           {/* <hr className="opacity-20 mt-2 mb-3" /> */}
 
@@ -123,7 +144,6 @@ function Login({
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const providers = await getProviders()
   const session = await getSession(context)
-
   return {
     props: { providers, session },
   }
