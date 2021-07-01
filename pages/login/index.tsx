@@ -79,10 +79,19 @@ function Login({
     {
       selector: '.social-stack',
       content: 'You can continue with any of these social logins.',
+
+      style: {
+        backgroundColor: '#4C566A',
+        color: 'white',
+      },
     },
     {
       selector: '.Google',
       content: 'Click here to continue with google',
+      style: {
+        backgroundColor: '#4C566A',
+        color: 'white',
+      },
     },
   ]
 
@@ -91,7 +100,12 @@ function Login({
       <Head>
         <title>Totoro | Login</title>
       </Head>
-      <Tour steps={steps} isOpen={isTourOpen} onRequestClose={() => setIsTourOpen(false)} />
+      <Tour
+        accentColor="#5E81AC"
+        steps={steps}
+        isOpen={isTourOpen}
+        onRequestClose={() => setIsTourOpen(false)}
+      />
 
       <div className="sm:p-5 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 place-items-center">
         <div className="text-3xl text-center sm:text-center mx-auto md:text-left w-full items-center xl:w-3/5 ">
