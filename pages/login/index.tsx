@@ -30,9 +30,17 @@ function Login({
 
   const [loading, loadingSet] = useState<string | null>()
   // const [submission, submissionSet] = useState<boolean>(false)
-  const [isTourOpen, setIsTourOpen] = useState(true)
+  const [isTourOpen, setIsTourOpen] = useState<null | boolean>(false)
 
+  const handlesetIstourOpen = (val: boolean) => {
+    localStorage.setItem('firstTimeUser', String(val))
+    setIsTourOpen(val)
+  }
   useEffect(() => {
+    if (!localStorage.firstTimeUser) {
+      handlesetIstourOpen(true)
+    }
+
     if (session) {
       router.push('/')
 
@@ -103,8 +111,8 @@ function Login({
       <Tour
         accentColor="#5E81AC"
         steps={steps}
-        isOpen={isTourOpen}
-        onRequestClose={() => setIsTourOpen(false)}
+        isOpen={isTourOpen as boolean}
+        onRequestClose={() => handlesetIstourOpen(false)}
       />
 
       <div className="sm:p-5 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 place-items-center">
