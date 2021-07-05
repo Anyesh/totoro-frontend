@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }): Rea
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <title>Totoro | Kawaii social networking app</title>
+        <title>Totoro | Kawaii social network</title>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#2E3440" />
       </Head>
