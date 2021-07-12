@@ -5,15 +5,29 @@ import { Session } from 'next-auth'
 import { getSession, Provider } from 'next-auth/client'
 import { ThemeProvider } from 'next-themes'
 import App, { AppContext, AppInitialProps, AppProps } from 'next/app'
-import React from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import * as gtag from '../lib/gtag'
 import '../styles/globals.css'
+const isProduction = process.env.NODE_ENV === 'production'
 interface AuthAppProps extends AppProps {
   session: Session
 }
 
 const Totoro = ({ Component, pageProps, session }: AuthAppProps): React.ReactElement => {
+  const router = useRouter()
+  useEffect(() => {
+    const handleRouteChange = (url: URL) => {
+      /* invoke analytics function only for production */
+      if (isProduction) gtag.pageview(url)
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.events])
   return (
     <Provider
       session={pageProps.session}
